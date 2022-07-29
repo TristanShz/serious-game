@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "../../../../_common/ui/Button";
 import clsx from "clsx";
 import { useRouter } from "next/router";
+import { pages } from "../../../../_config/pages";
 
 type Props = {
   className?: string;
@@ -18,21 +19,21 @@ export function Menu(props: Props) {
         "text-black-10": props.white,
       })}
     >
-      <Link href={"/"}>
+      <Link href={pages.formations.path}>
         <a>Formations</a>
       </Link>
-      <Link href={"/"}>
+      <Link href={pages.contact.path}>
         <a>Contact</a>
       </Link>
       <div className={"flex gap-8"}>
-        {asPath !== "/register" && (
-          <Link href={"/register"}>
+        {asPath !== pages.register.path && (
+          <Link href={pages.register.path}>
             <a>
               <Button color={"gradient"} content={"S'inscrire"} />
             </a>
           </Link>
         )}
-        <Link href={"/"}>
+        <Link href={pages.login.path}>
           <a>
             <Button
               secondary

@@ -9,7 +9,11 @@ type Props = {
 export default function RegularLayout({ children, headerProps }: Props) {
   return (
     <>
-      <Header white={headerProps?.white} fixed={headerProps?.fixed} />
+      <Header
+        white={headerProps?.white}
+        fixed={headerProps?.fixed}
+        full={headerProps?.full}
+      />
       {children}
     </>
   );

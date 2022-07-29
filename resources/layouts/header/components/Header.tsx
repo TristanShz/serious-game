@@ -7,13 +7,16 @@ import { observer } from "mobx-react-lite";
 import clsx from "clsx";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useMobxStores } from "../../../../_common/_stores/Stores";
 
 export type THeaderProps = {
   white?: boolean;
   fixed?: boolean;
+  full?: boolean;
 };
 
 export const Header = observer((props: THeaderProps) => {
+  const { menuStore } = useMobxStores();
   return (
     <>
       <header
@@ -39,8 +42,18 @@ export const Header = observer((props: THeaderProps) => {
           animate={{ y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <Menu className={"hidden lg:flex"} white={props.white} />
-          <Hamburger className={"block lg:hidden"} />
+          {props.full ? (
+            menuStore.isOpen ? (
+              <Hamburger />
+            ) : (
+              <>
+                <Menu className={"hidden lg:flex"} white={props.white} />
+                <Hamburger className={"flex lg:hidden"} />
+              </>
+            )
+          ) : (
+            <Hamburger />
+          )}
         </motion.div>
       </header>
       <PanelMenu />
