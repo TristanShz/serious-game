@@ -17,9 +17,9 @@ export abstract class ApiPublicStore<TResource extends TObjWithId> extends ApiSt
         limit?: number,
         sort?: { [p: string]: number },
         filters?: TFilter[],
-    ): Promise<{ count: any; items: any }> {
+    ): Promise<{ count: number; items: TResource[] }> {
         const promise = httpClient
-            .get<{ count: number; items: TResource[] }>(this.customEndPoint("/listing", offset, limit, sort, filters), {
+            .get<{ count: number; items: TResource[] }>(this.listEndPoint(offset, limit, sort, filters), {
                 headers: {
                     Authorization: `Bearer ${tokenStore.token ?? ""}`,
                 },

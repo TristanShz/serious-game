@@ -1,9 +1,11 @@
 import { __SERVER__ } from "../_utils/coreUtils";
 import { MenuStore } from "../../resources/layouts/header/_stores/MenuStore";
 import { createContext, PropsWithChildren, useContext } from "react";
+import { CategoriesStore } from "../../resources/categories/_stores/categoriesStore";
 
 type TStores = {
     menuStore: MenuStore;
+    categoriesStore: CategoriesStore;
 };
 
 export type TStoresInitialData = {};
@@ -14,11 +16,13 @@ export function getStores(initialData: TStoresInitialData = { storesInitialData:
     if (__SERVER__) {
         return {
             menuStore: new MenuStore(),
+            categoriesStore: new CategoriesStore(),
         };
     }
     if (!clientSideStores) {
         clientSideStores = {
             menuStore: new MenuStore(),
+            categoriesStore: new CategoriesStore(),
         };
     }
 

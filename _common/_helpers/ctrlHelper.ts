@@ -3,6 +3,7 @@ import { apiConfig } from "../../_config/config";
 import { errorsBuilders } from "../errors/errorBuilder";
 import BaseError from "../errors/baseError";
 import { NextApiResponse } from "next";
+import { Req } from "../_types/Req";
 
 export function errorHandler(res: NextApiResponse, error: any, identifier: string) {
     const body = { error: errorsBuilders.global.unknown() };
@@ -48,17 +49,17 @@ export async function genericCtrlFn<T, U>(
     }
 }
 
-// export async function getUserFromRequest(req: Req) {
-//     if (!req.user) {
-//         return undefined;
-//     } else if (req.user.fromToken) {
-//         const user = await usersService.get(req.user._id, {});
-//         if (user) {
-//             req.user = { fromToken: false, ...user.toObject() };
-//         }
-//     }
-//     return req.user;
-// }
+export async function getUserFromRequest(req: Req) {
+    // if (!req.user) {
+    //     return undefined;
+    // } else if (req.user.fromToken) {
+    //     const user = await usersService.get(req.user._id, {});
+    //     if (user) {
+    //         req.user = { fromToken: false, ...user.toObject() };
+    //     }
+    // }
+    return req.user;
+}
 
 export function sanitizeFileName(fileName: string) {
     fileName.replace(/[\s]/, "-");

@@ -3,18 +3,26 @@ import { genericCtrlFn } from "../../_common/_helpers/ctrlHelper";
 import CrudService from "./CrudService";
 import { errorsBuilders } from "../../_common/errors/errorBuilder";
 import mongoose from "mongoose";
+import { Req } from "../../_common/_types/Req";
+import { TFieldsRightsByRole } from "../../_common/permissions/fieldsRightsHelper";
 
-export abstract class CrudHandler<
+export abstract class CrudCtrl<
     TCrudId extends keyof typeof errorsBuilders,
     TModel,
     TDoc extends TModel & mongoose.Document,
 > {
     protected readonly ctrlName: TCrudId;
     protected readonly crudService: CrudService<TCrudId, TModel, TDoc>;
+    protected readonly fieldsUpdateRights?: TFieldsRightsByRole<TModel>;
 
-    protected constructor(ctrlName: TCrudId, crudService: CrudService<TCrudId, TModel, TDoc>) {
+    protected constructor(
+        ctrlName: TCrudId,
+        crudService: CrudService<TCrudId, TModel, TDoc>,
+        fieldsUpdateRights?: TFieldsRightsByRole<TModel>,
+    ) {
         this.ctrlName = ctrlName;
         this.crudService = crudService;
+        this.fieldsUpdateRights = fieldsUpdateRights;
     }
 
     // protected static async checkAdminUser(req: any) {
@@ -55,5 +63,25 @@ export abstract class CrudHandler<
                 count,
             }));
         });
+    };
+
+    get: NextApiHandler = (req, res) => {
+        return genericCtrlFn(res, this.ctrlName + ".get", () => this.crudService.get(req.query.itemId).exec());
+    };
+
+    create: NextApiHandler = (req, res) => {
+        return genericCtrlFn(res, this.ctrlName + ".create", () => this.crudService.create(req.body));
+    };
+
+    patch: NextApiHandler = (req, res) => {
+        return genericCtrlFn(res, this.ctrlName + ".patch", () => this.crudService.patch(req as Req, req.body, {}));
+    };
+
+    update: NextApiHandler = (req, res) => {
+        return genericCtrlFn(res, this.ctrlName + ".update", () => this.crudService.update(req as Req, req.body));
+    };
+
+    delete: NextApiHandler = (req, res) => {
+        return genericCtrlFn(res, this.ctrlName + ".delete", () => this.crudService.delete(req.query.itemId));
     };
 }

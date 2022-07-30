@@ -1,7 +1,4 @@
-export enum USER_ROLES {
-    ADMIN = "ADMIN",
-    USER = "USER",
-}
+import { USER_ROLES } from "../../../lib/users/UserModel";
 
 export type TUserBase = {
     _id: string;

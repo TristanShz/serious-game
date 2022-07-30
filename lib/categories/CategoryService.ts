@@ -5,7 +5,11 @@ class CategoryService extends CrudService<"category", ICategoryModel, ICategoryD
     constructor() {
         super("category", CategoryModel, false);
     }
+
+    async getOneByAlias(urlAlias: string) {
+        return CategoryModel.findOne({ urlAlias }).lean().exec();
+    }
 }
 
-const categoryService = new CategoryService();
-export default categoryService;
+const categoriesService = new CategoryService();
+export default categoriesService;
