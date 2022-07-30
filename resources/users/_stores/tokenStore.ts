@@ -3,6 +3,7 @@ import { appConfig } from "../../../_config/config";
 import { action, makeObservable, observable } from "mobx";
 import jwt_decode from "jwt-decode";
 import { deleteCookie, getCookie, setCookie } from "../../../_common/_utils/cookieUtils";
+import { __BROWSER__ } from "../../../_common/_utils/coreUtils";
 
 function getTokenExpirationDate(token: string) {
     const decoded: { exp: number | undefined } = jwt_decode<any>(token);

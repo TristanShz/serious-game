@@ -13,6 +13,12 @@ export const ERRORS_KEYS = {
     category: {
         notFound: "CATEGORY_NOT_FOUND",
     },
+    users: {
+        notFound: "USER_NOT_FOUND",
+    },
+    formations: {
+        notFound: "FORMATION_NOT_FOUND",
+    },
 };
 
 type ErrorBuilder = (message?: string, info?: string) => BaseError;

@@ -6,8 +6,8 @@ import { TMongooseId } from "../../_common/_types/MongooseTypes";
 export const ENTRY_LEVELS: [0, 1, 2, 3] = [0, 1, 2, 3];
 export type TEntryLevel = ElementType<typeof ENTRY_LEVELS>;
 
-export interface IFormationsModel {
-    _id: TMongooseId;
+export interface IFormationModel {
+    _id?: TMongooseId;
     category: TMongooseId;
     title: string;
     alias: string;
@@ -17,7 +17,7 @@ export interface IFormationsModel {
     image?: string;
 }
 
-export interface IFormationDocument extends Omit<IFormationsModel, "_id">, mongoose.Document {}
+export interface IFormationDocument extends Omit<IFormationModel, "_id">, mongoose.Document {}
 
 const FormationSchema = new mongoose.Schema<IFormationDocument>({
     category: { type: Types.ObjectId, ref: CategoryModel, required: true },

@@ -4,6 +4,7 @@ import { tokenStore } from "./tokenStore";
 import { TTokenData } from "../../../_common/_types/baseType";
 import { authStore } from "../../auth/_stores/AuthStore";
 import { TUser } from "../_models/UserMdl";
+import { __BROWSER__ } from "../../../_common/_utils/coreUtils";
 
 export class UserStore extends ApiPublicStore<TUser> {
     @observable user: TTokenData | undefined = undefined;
