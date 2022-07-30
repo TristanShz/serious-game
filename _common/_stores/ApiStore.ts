@@ -3,7 +3,7 @@ import { IResourceStore } from "./ResourceStore";
 import { appConfig } from "../../_config/config";
 import { TFilter } from "../_types/filterTypes";
 import { TObjWithId } from "../_types/baseType";
-import { TFilesData } from "../utils/fileUtils";
+import { TFilesData } from "../_utils/fileUtils";
 import { action, makeObservable, observable } from "mobx";
 import { tokenStore } from "../../resources/users/_stores/tokenStore";
 

@@ -1,7 +1,7 @@
 import httpClient, { fetchUtils } from "../../_config/axios";
 import { TFilter } from "../_types/filterTypes";
 import { TObjWithId } from "../_types/baseType";
-import { TFilesData } from "../utils/fileUtils";
+import { TFilesData } from "../_utils/fileUtils";
 import { tokenStore } from "../../resources/users/_stores/tokenStore";
 import { ApiStore } from "./ApiStore";
 import { makeObservable } from "mobx";

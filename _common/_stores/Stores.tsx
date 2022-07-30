@@ -1,4 +1,4 @@
-import { __SERVER__ } from "../utils/coreUtils";
+import { __SERVER__ } from "../_utils/coreUtils";
 import { MenuStore } from "../../resources/layouts/header/_stores/MenuStore";
 import { createContext, PropsWithChildren, useContext } from "react";
 

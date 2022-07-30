@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TFilesData } from "../_common/utils/fileUtils";
+import { TFilesData } from "../_common/_utils/fileUtils";
 
 export const httpClient = axios.create({
     baseURL: process.env.NEXT_PUBLIC_SG_API,

@@ -2,7 +2,7 @@ import httpClient, { fetchUtils } from "../../../_config/axios";
 import { appConfig } from "../../../_config/config";
 import { action, makeObservable, observable } from "mobx";
 import jwt_decode from "jwt-decode";
-import { deleteCookie, getCookie, setCookie } from "../../../_common/utils/cookieUtils";
+import { deleteCookie, getCookie, setCookie } from "../../../_common/_utils/cookieUtils";
 
 function getTokenExpirationDate(token: string) {
     const decoded: { exp: number | undefined } = jwt_decode<any>(token);
