@@ -3,7 +3,7 @@ const isStaging = process.env.IS_STAGING === "true";
 const isProd = process.env.NODE_ENV === "production" && !isStaging;
 
 export const appConfig = {
-    url: process.env.NEXT_PUBLIC_URL as string,
+    url: process.env.NEXT_AUTH_URL as string,
     apiUrl: process.env.NEXT_PUBLIC_SG_API as string,
     apiUrlStatic: process.env.NEXT_PUBLIC_SG_API_STATIC as string,
     apiKey: "MSeUkQdx9t7AaNfw2kbX",
