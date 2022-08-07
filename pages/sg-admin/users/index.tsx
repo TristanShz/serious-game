@@ -1,7 +1,9 @@
 import React, { ReactElement } from "react";
 import { TableComponent } from "../../../_common/components/table/TableComponent";
 import { RegularAdminLayout } from "../../../resources/layouts/RegularAdminLayout";
-import SgAdmin from "../index";
+import { fetcher } from "../../../_config/axios";
+import useSWR from "swr";
+import { baseUrlAdmin } from "../../../_common/routes/routes";
 
 type Props = {};
 
@@ -134,6 +136,7 @@ const FAKE_COLUMNS = [
 ];
 
 const UsersAdminDashboard = (props: Props) => {
+    const { data, error } = useSWR(`${baseUrlAdmin}/api/v1/category`, fetcher);
     //TODO: Ajouter componentLoader + ResourceStore
     return <TableComponent columns={FAKE_COLUMNS} data={FAKE_ROW_DATA} />;
 };
