@@ -7,12 +7,7 @@ export const httpClient = axios.create({
 });
 
 export const fetchUtils = {
-    get: <T>(url: string, bearerToken?: string) =>
-        httpClient.get<T>(url, {
-            headers: {
-                Authorization: `Bearer ${bearerToken ? bearerToken : ""}`,
-            },
-        }),
+    get: <T>(url: string) => httpClient.get<T>(url),
     post: <T>(url: string, data?: any, bearerToken?: string) =>
         httpClient.post<T>(url, data, {
             headers: {

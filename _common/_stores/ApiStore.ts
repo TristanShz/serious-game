@@ -5,7 +5,6 @@ import { TFilter } from "../_types/filterTypes";
 import { TObjWithId } from "../_types/baseType";
 import { TFilesData } from "../_utils/fileUtils";
 import { action, makeObservable, observable } from "mobx";
-import { tokenStore } from "../../resources/users/_stores/tokenStore";
 
 export abstract class ApiStore<TResource extends TObjWithId> implements IResourceStore<TResource> {
     @observable items: TResource[] = [];
@@ -44,11 +43,7 @@ export abstract class ApiStore<TResource extends TObjWithId> implements IResourc
 
     list(offset = 0, limit?: number, sort?: { [key: string]: number }, filters?: TFilter[]) {
         const promise = httpClient
-            .get<{ count: number; items: TResource[] }>(this.listEndPoint(offset, limit, sort, filters), {
-                headers: {
-                    Authorization: `Bearer ${tokenStore.token ?? ""}`,
-                },
-            })
+            .get<{ count: number; items: TResource[] }>(this.listEndPoint(offset, limit, sort, filters))
             .then(({ data: { count, items } }) => {
                 this.setItems(items);
                 return {
@@ -64,42 +59,21 @@ export abstract class ApiStore<TResource extends TObjWithId> implements IResourc
     }
 
     get(itemId: string): Promise<TResource | undefined> {
-        return httpClient
-            .get<TResource>(this.getEndPoint(itemId), {
-                headers: {
-                    Authorization: `Bearer ${tokenStore.token ?? ""}`,
-                },
-            })
-            .then(({ data }) => data);
+        return httpClient.get<TResource>(this.getEndPoint(itemId)).then(({ data }) => data);
     }
 
     delete(itemId: string | number): Promise<TResource | undefined> {
-        return httpClient
-            .delete<TResource>(`${this.apiPath}/${itemId}`, {
-                headers: {
-                    Authorization: `Bearer ${tokenStore.token ?? ""}`,
-                },
-            })
-            .then(({ data }) => data);
+        return httpClient.delete<TResource>(`${this.apiPath}/${itemId}`).then(({ data }) => data);
     }
 
     update(data: Partial<TResource>, files?: TFilesData): Promise<TResource | undefined> {
-        return httpClient
-            .patch<TResource>(`${this.apiPath}/${data._id}`, data, {
-                headers: {
-                    Authorization: `Bearer ${tokenStore.token ?? ""}`,
-                },
-            })
-            .then(({ data }) => data);
+        return httpClient.patch<TResource>(`${this.apiPath}/${data._id}`, data).then(({ data }) => data);
     }
 
     create(data: any): Promise<TResource | undefined> {
         return httpClient
             .post<TResource>(`${this.apiPath}`, {
                 ...data,
-                headers: {
-                    Authorization: `Bearer ${tokenStore.token ?? ""}`,
-                },
             })
             .then(({ data }) => data);
     }

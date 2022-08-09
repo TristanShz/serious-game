@@ -2,7 +2,6 @@ import httpClient, { fetchUtils } from "../../_config/axios";
 import { TFilter } from "../_types/filterTypes";
 import { TObjWithId } from "../_types/baseType";
 import { TFilesData } from "../_utils/fileUtils";
-import { tokenStore } from "../../resources/users/_stores/tokenStore";
 import { ApiStore } from "./ApiStore";
 import { makeObservable } from "mobx";
 
@@ -19,11 +18,7 @@ export abstract class ApiPublicStore<TResource extends TObjWithId> extends ApiSt
         filters?: TFilter[],
     ): Promise<{ count: number; items: TResource[] }> {
         const promise = httpClient
-            .get<{ count: number; items: TResource[] }>(this.listEndPoint(offset, limit, sort, filters), {
-                headers: {
-                    Authorization: `Bearer ${tokenStore.token ?? ""}`,
-                },
-            })
+            .get<{ count: number; items: TResource[] }>(this.listEndPoint(offset, limit, sort, filters))
             .then(({ data: { count, items } }) => {
                 this.setItems(items);
                 return {
@@ -36,24 +31,14 @@ export abstract class ApiPublicStore<TResource extends TObjWithId> extends ApiSt
 
     update(data: Partial<TResource>, files?: TFilesData): Promise<TResource | undefined> {
         const _data = files ? fetchUtils.createBodyWithFiles(data, files) : data;
-        return httpClient
-            .patch<TResource>(`${this.apiPath}/update/${data._id}`, _data, {
-                headers: {
-                    Authorization: `Bearer ${tokenStore.token ?? ""}`,
-                },
-            })
-            .then(({ data }) => data);
+        return httpClient.patch<TResource>(`${this.apiPath}/update/${data._id}`, _data, {}).then(({ data }) => data);
     }
 
     new(item: Partial<TResource>) {
-        return httpClient.post<TResource>(`${this.apiPath}/new`, item, {
-            headers: {
-                Authorization: `Bearer ${tokenStore.token ?? ""}`,
-            },
-        });
+        return httpClient.post<TResource>(`${this.apiPath}/new`, item);
     }
 
-    getEndPoint(itemId: string): string {
-        return `${this.apiPath}/one/${itemId}`;
+    getEndPoint(): string {
+        return `${this.apiPath}`;
     }
 }

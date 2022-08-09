@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { InputBlock } from "../../../_common/ui/form/InputBlock";
 import { Input } from "../../../_common/ui/form/Input";
@@ -6,6 +6,7 @@ import { TUserBase } from "../../users/_models/UserMdl";
 import { Button } from "../../../_common/ui/Button";
 import { errorsMessages } from "../../../_common/errors/errorsMessages";
 import { authStore } from "../_stores/AuthStore";
+import { ERRORS_MESSAGES } from "../../../_common/_utils/errorsUtils";
 
 export const registerForm = {
     defaultValues: {
@@ -30,10 +31,19 @@ export function RegisterForm() {
     });
 
     const onSubmit = (data: TUserRegister) => {
-        authStore.signUp(data).then((res) => {
-            console.log(res);
-        });
+        authStore
+            .register(data)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.error("ERREUR LORS DE L'INSCRIPTION : ", err);
+                setErrorMessage(ERRORS_MESSAGES[err.response.data.error.key as keyof typeof ERRORS_MESSAGES]);
+            });
     };
+
+    const [errorMessage, setErrorMessage] = useState("");
+
     return (
         <form className={"w-full flex flex-col gap-3"} onSubmit={handleSubmit(onSubmit)}>
             <InputBlock label={"Nom"}>
@@ -86,6 +96,7 @@ export function RegisterForm() {
                 />
             </InputBlock>
             <Button type={"submit"} content={"Créer un compte"} color={"gradient"} full className={"mt-3"} />
+            <p className={"text-input-error font-medium"}>{errorMessage}</p>
         </form>
     );
 }

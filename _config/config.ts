@@ -16,6 +16,14 @@ export const apiConfig = {
     isDev,
     isStaging,
     isProd,
+    apiKey: "MSeUkQdx9t7AaNfw2kbX",
+    ironOptions: {
+        cookieName: "SESSION",
+        password: process.env.SESSION_PASSWORD as string,
+        cookieOptions: {
+            secure: process.env.NODE_ENV === "production",
+        },
+    },
     uploads: {
         baseUrl: "uploads/seriousgame",
     },
@@ -24,6 +32,8 @@ export const apiConfig = {
         user: process.env.MONGO_USER,
         pass: process.env.MONGO_PASS,
     },
-
+    jwt: {
+        secret: process.env.JWT_KEY as string,
+    },
     apiPath: "api/v1",
 };
