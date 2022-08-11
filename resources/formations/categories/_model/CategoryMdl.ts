@@ -1,4 +1,4 @@
-import { TMongooseId } from "../../../_common/_types/MongooseTypes";
+import { TMongooseId } from "../../../../_common/_types/MongooseTypes";
 
 export type TCategoryMdl = {
     _id: TMongooseId;

@@ -6,8 +6,8 @@ import { Line } from "../../_common/ui/Line";
 import { CategoryBlock } from "../../resources/formations/categories/components/CategoryBlock";
 import { GetStaticProps } from "next";
 import dbConnect from "../../lib/dbConnect";
-import { TCategoryMdl } from "../../resources/categories/_model/CategoryMdl";
-import { categoriesStore } from "../../resources/categories/_stores/categoriesStore";
+import { TCategoryMdl } from "../../resources/formations/categories/_model/CategoryMdl";
+import { categoriesStore } from "../../resources/formations/categories/_stores/categoriesStore";
 import { pages } from "../../_config/pages";
 
 const Formations = (props: { categories: TCategoryMdl[] }) => {

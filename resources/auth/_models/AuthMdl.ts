@@ -12,7 +12,7 @@ export type TRegisterData = {
     password: string;
 };
 
-export type TLoginData = {
+export type TCredentials = {
     email: string;
     password: string;
 };

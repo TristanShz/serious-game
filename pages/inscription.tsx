@@ -1,14 +1,26 @@
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import RegularLayout from "../resources/layouts/RegularLayout";
 import { TitleBlock } from "../_common/ui/TitleBlock";
 import { RegisterForm } from "../resources/auth/components/registerForm";
 import { observer } from "mobx-react-lite";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { pages } from "../_config/pages";
+import useUser from "../lib/users/_helpers/useUser";
 
 function Inscription() {
+    //Redirect home if user is logged in
+    useUser({
+        redirectTo: "/",
+        redirectIfFound: true,
+    });
+
     return (
-        <div className={"w-screen md:h-screen overflow-y-auto flex flex-col-reverse md:flex-row gap-6 md:gap-0"}>
+        <div
+            className={
+                "w-screen md:h-screen overflow-y-auto overflow-x-hidden flex flex-col-reverse md:flex-row gap-6 md:gap-0"
+            }
+        >
             <div
                 className={
                     "w-full md:w-2/5 flex-1 h-fit md:h-full flex flex-col justify-start md:justify-center items-start md:items-center px-8 md:px-12 lg:px-24 gap-3 lg:gap-6 pb-6 md:pb-0"
@@ -16,12 +28,11 @@ function Inscription() {
             >
                 <h2 className={"self-start font-bold text-xl md:text-2xl lg:text-3xl"}>S&rsquo;inscrire</h2>
                 <RegisterForm />
-                <div>
-                    Vous avez déja un compte ?
-                    <Link href={""}>
-                        <a className={"text-primary"}> Se connecter</a>
-                    </Link>
-                </div>
+                <Link href={pages.login.path}>
+                    <a className={"hover:underline"}>
+                        Vous avez déja un compte ? <span className={"text-primary"}>Se connecter</span>
+                    </a>
+                </Link>
             </div>
             <motion.div
                 initial={{ x: "100%" }}
@@ -38,7 +49,7 @@ function Inscription() {
                         text={
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                         }
-                        className={"text-black-10"}
+                        className={"text-neutral-10"}
                     />
                 </motion.div>
             </motion.div>

@@ -1,7 +1,7 @@
 import { __SERVER__ } from "../_utils/coreUtils";
 import { MenuStore } from "../../resources/layouts/header/_stores/MenuStore";
 import { createContext, PropsWithChildren, useContext } from "react";
-import { CategoriesStore } from "../../resources/categories/_stores/categoriesStore";
+import { CategoriesStore } from "../../resources/formations/categories/_stores/categoriesStore";
 
 type TStores = {
     menuStore: MenuStore;

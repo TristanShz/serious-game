@@ -12,16 +12,21 @@ export interface IUserModel {
     email: string;
     password: string;
     role: USER_ROLES;
+    token?: string;
 }
 
 export interface IUserDocument extends Omit<IUserModel, "_id">, mongoose.Document {}
 
-const UserSchema = new mongoose.Schema<IUserModel>({
-    firstName: { type: String, trim: true, required: true },
-    lastName: { type: String, trim: true, required: true },
-    email: { type: String, trim: true, required: true },
-    password: { type: String, trim: true, required: true, minLength: 8, select: false },
-    role: { type: String, enum: Object.values(USER_ROLES), required: true },
-});
+const UserSchema = new mongoose.Schema<IUserModel>(
+    {
+        firstName: { type: String, trim: true, required: true },
+        lastName: { type: String, trim: true, required: true },
+        email: { type: String, trim: true, required: true },
+        password: { type: String, trim: true, required: true, minLength: 8, select: false },
+        role: { type: String, enum: Object.values(USER_ROLES), required: true },
+        token: { type: String },
+    },
+    { timestamps: true },
+);
 
 export default mongoose.models.Users || mongoose.model("Users", UserSchema);
