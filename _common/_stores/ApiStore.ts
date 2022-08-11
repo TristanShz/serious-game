@@ -11,7 +11,7 @@ export abstract class ApiStore<TResource extends TObjWithId> implements IResourc
     readonly apiPath: string;
 
     protected constructor(protected serviceName: string) {
-        this.apiPath = `${appConfig.apiUrl}/${this.serviceName}`;
+        this.apiPath = `${appConfig.apiUrl}/admin/${this.serviceName}`;
         makeObservable(this);
     }
 
@@ -72,7 +72,7 @@ export abstract class ApiStore<TResource extends TObjWithId> implements IResourc
 
     create(data: any): Promise<TResource | undefined> {
         return httpClient
-            .post<TResource>(`${this.apiPath}`, {
+            .post<TResource>(`${this.apiPath}/new`, {
                 ...data,
             })
             .then(({ data }) => data);

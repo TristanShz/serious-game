@@ -1,34 +1,37 @@
 import React from "react";
 import { ResourcesColumns } from "./ResourcesColumns";
 import { ResourceRowList } from "./ResourceRowList";
+import { useResourcesStore } from "../../../resources/admin/_stores/ResourcesContext";
+import { Button } from "../../ui/Button";
+import { useRouter } from "next/router";
+import { urlsAdmin } from "../../routes/routes";
+import { observer } from "mobx-react";
 
 type Props = {
-    data: {
-        _id: string;
-        name: string;
-        email: string;
-        date: string;
-        adresse: string;
-        phone: string;
-        subscribe: string;
-        role: string;
-    }[];
     columns: { key: string; label: string }[];
 };
 
-export function TableComponent(props: Props) {
+export const TableComponent = observer((props: Props) => {
+    const resourcesStore = useResourcesStore();
+    const { replace } = useRouter();
     return (
         <>
+            <Button
+                content={"Ajouter"}
+                onClick={() => {
+                    replace(`${urlsAdmin().formations}/new`);
+                }}
+            />
             <table className="min-w-full border-collapse block md:table">
                 <thead className="block md:table-header-group">
                     <ResourcesColumns resourceColumns={props.columns} />
                 </thead>
                 <tbody className="block md:table-row-group">
-                    {props.data.map((item) => (
+                    {resourcesStore.items.map((item) => (
                         <ResourceRowList key={item._id} item={item} resourceColumns={props.columns} />
                     ))}
                 </tbody>
             </table>
         </>
     );
-}
+});

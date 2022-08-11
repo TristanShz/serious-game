@@ -78,7 +78,7 @@ export abstract class CrudCtrl<
     };
 
     update: NextApiHandler = (req, res) => {
-        return genericCtrlFn(res, this.ctrlName + ".update", () => this.crudService.update(req as Req, req.body));
+        return genericCtrlFn(res, this.ctrlName + ".update", () => this.crudService.update(req.query.itemId, req.body));
     };
 
     delete: NextApiHandler = (req, res) => {

@@ -4,8 +4,8 @@ import { AxiosResponse } from "axios";
 import useSWR from "swr";
 
 type Props<T> = {
-    render: (data: AxiosResponse<T> | undefined, error: any) => ReactNode;
     renderError?: (error: any) => ReactNode;
+    render: (data: { data: { count: number; items: T[] } } | undefined, error: any) => ReactNode;
     endPoint: string;
 };
 

@@ -7,6 +7,9 @@ import { NextPage } from "next";
 import { getStores, StoreProvider, TStoresInitialData } from "../_common/_stores/Stores";
 import { userStore } from "../resources/users/_stores/UserStore";
 import { UserProvider } from "../resources/users/_stores/UserContext";
+import { ModalProvider } from "../resources/modal/_stores/ModalContext";
+import { modalStore } from "../resources/modal/_stores/ModalStore";
+import { ModalObserver } from "../resources/modal/components/Modal";
 
 type NextPageWithLayout = NextPage & {
     getLayout?: (page: ReactElement) => ReactNode;
@@ -22,7 +25,10 @@ function MyApp({ Component, pageProps, initialData }: AppPropsWithLayout) {
     const stores = getStores();
     return (
         <UserProvider store={userStore}>
-            <StoreProvider value={stores}>{getLayout(<Component {...pageProps} />)}</StoreProvider>
+            <ModalProvider store={modalStore}>
+                <ModalObserver />
+                <StoreProvider value={stores}>{getLayout(<Component {...pageProps} />)}</StoreProvider>
+            </ModalProvider>
         </UserProvider>
     );
 }

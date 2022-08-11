@@ -113,7 +113,7 @@ const FAKE_COLUMNS = [
 ];
 
 const CategoryAdminDashboard = (props: Props) => {
-    return <TableComponent columns={FAKE_COLUMNS} data={FAKE_ROW_DATA} />;
+    return <TableComponent columns={FAKE_COLUMNS} />;
 };
 
 CategoryAdminDashboard.getLayout = function getLayout(page: ReactElement) {
