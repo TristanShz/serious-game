@@ -26,12 +26,12 @@ export function FormationBlock(props: Props) {
             }
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClick={() => push(pages.formations)}
+            onClick={() => push(pages.formations.path)}
         >
             <div className={"w-full h-52 xl:w-52 relative"}>
                 <Image
                     src={formation5}
-                    className={"rounded-t-3xl xl:rounded-t-none xl:rounded-3xl"}
+                    className={"rounded-t-3xl xl:rounded-3xl"}
                     layout={"fill"}
                     objectFit={"cover"}
                     objectPosition={"center"}
