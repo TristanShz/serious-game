@@ -29,6 +29,7 @@ export function FormationsForm(props: Props) {
         } else {
             formationsAdminStore.update(data).then((response) => {
                 push(`${urlsAdmin().formations}`);
+                //TODO: Voir si les données se mettent bien a jours aprés update
             });
             modalStore.close();
         }
@@ -89,7 +90,7 @@ export function FormationsForm(props: Props) {
                                 type={"button"}
                                 color={"white"}
                                 onClick={() => {
-                                    modalStore.close();
+                                    push(urlsAdmin().formations);
                                 }}
                             />
                         </div>

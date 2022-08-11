@@ -15,8 +15,9 @@ export const TableComponent = observer((props: Props) => {
     const resourcesStore = useResourcesStore();
     const { replace } = useRouter();
     return (
-        <>
+        <div className={"flex flex-col gap-3"}>
             <Button
+                color={"gradient"}
                 content={"Ajouter"}
                 onClick={() => {
                     replace(`${urlsAdmin().formations}/new`);
@@ -32,6 +33,6 @@ export const TableComponent = observer((props: Props) => {
                     ))}
                 </tbody>
             </table>
-        </>
+        </div>
     );
 });
