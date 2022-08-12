@@ -4,12 +4,14 @@ import UsersAdminDashboard from "./users";
 import { withSessionSsr } from "../../lib/withSession";
 import { USER_ROLES } from "../../lib/users/UserModel";
 import FormationsAdminDashboard from "./formations";
+import CategoryAdminDashboard from "./category";
 
 const SgAdmin = () => {
     return (
         <div className={"flex flex-col gap-3"}>
             <UsersAdminDashboard />
             <FormationsAdminDashboard />
+            <CategoryAdminDashboard />
         </div>
     );
 };

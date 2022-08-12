@@ -27,7 +27,7 @@ export const ResourcesLine = observer((props: Props) => {
                     <Button
                         className={"bg-yellow-500 rounded"}
                         onClick={() => {
-                            push(`${urlsAdmin().formationsEdit}/${props.item._id}`);
+                            push(`${urlsAdmin().edit(resourcesStore.storeName, props.item._id)}`);
                         }}
                         content={"éditer"}
                     />

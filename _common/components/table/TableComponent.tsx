@@ -16,13 +16,16 @@ export const TableComponent = observer((props: Props) => {
     const { replace } = useRouter();
     return (
         <div className={"flex flex-col gap-3"}>
-            <Button
-                color={"gradient"}
-                content={"Ajouter"}
-                onClick={() => {
-                    replace(`${urlsAdmin().formations}/new`);
-                }}
-            />
+            <div className={"flex items-center"}>
+                <Button
+                    color={"gradient"}
+                    content={"Ajouter"}
+                    onClick={() => {
+                        replace(`${urlsAdmin().formationsNew(resourcesStore.storeName)}`);
+                    }}
+                />
+                <h1 className={"text-center w-full font-bold"}>{resourcesStore.storeName}</h1>
+            </div>
             <table className="min-w-full border-collapse block md:table">
                 <thead className="block md:table-header-group">
                     <ResourcesColumns resourceColumns={props.columns} />
