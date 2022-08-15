@@ -17,6 +17,7 @@ export function Button(props: Props) {
     return (
         <button
             type={props.type}
+            onClick={props.onClick}
             className={clsx(
                 props.className,
                 "rounded-lg flex items-center hover:cursor-pointer active:scale-98 font-medium whitespace-nowrap transition-all",

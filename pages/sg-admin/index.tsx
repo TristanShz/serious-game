@@ -3,9 +3,17 @@ import { RegularAdminLayout } from "../../resources/layouts/RegularAdminLayout";
 import UsersAdminDashboard from "./users";
 import { withSessionSsr } from "../../lib/withSession";
 import { USER_ROLES } from "../../lib/users/UserModel";
+import FormationsAdminDashboard from "./formations";
+import CategoryAdminDashboard from "./category";
 
 const SgAdmin = () => {
-    return <UsersAdminDashboard />;
+    return (
+        <div className={"flex flex-col gap-3"}>
+            <UsersAdminDashboard />
+            <FormationsAdminDashboard />
+            <CategoryAdminDashboard />
+        </div>
+    );
 };
 
 SgAdmin.getLayout = function getLayout(page: ReactElement) {

@@ -3,102 +3,14 @@ import { TableComponent } from "../../../_common/components/table/TableComponent
 import { RegularAdminLayout } from "../../../resources/layouts/RegularAdminLayout";
 import { fetcher } from "../../../_config/axios";
 import useSWR from "swr";
-import { baseUrlAdmin } from "../../../_common/routes/routes";
+import { baseAPIUrlAdmin } from "../../../_common/routes/routes";
+import { ComponentLoader } from "../../../_common/components/loader/ComponentLoader";
+import { usersAdminStore } from "../../../resources/admin/users/_stores/usersAdminStore";
+import { TUser } from "../../../resources/users/_models/UserMdl";
+import { ResourcesProvider, useResourcesStore } from "../../../resources/admin/_stores/ResourcesContext";
+import { ResourcesStore } from "../../../resources/admin/_stores/ResourcesStore";
 
 type Props = {};
-
-const FAKE_ROW_DATA = [
-    {
-        _id: "if35435435DiSfsdfsdf",
-        name: "John Doe",
-        email: "JohnDoe@gmail.com",
-        date: "15/06/2022",
-        adresse: "25 rue des pinpin",
-        phone: "5432567890",
-        subscribe: "oui",
-        role: "ADMIN",
-    },
-    {
-        _id: "if35435435dDSfsdfsdf",
-        name: "John Doe",
-        email: "JohnDoe@gmail.com",
-        date: "15/06/2022",
-        adresse: "25 rue des pinpin",
-        phone: "5432567890",
-        subscribe: "oui",
-        role: "ADMIN",
-    },
-    {
-        _id: "if35435l435DSfsdfsdf",
-        name: "John Doe",
-        email: "JohnDoe@gmail.com",
-        date: "15/06/2022",
-        adresse: "25 rue des pinpin",
-        phone: "5432567890",
-        subscribe: "oui",
-        role: "ADMIN",
-    },
-    {
-        _id: "if35435435DxSfsdfsdf",
-        name: "John Doe",
-        email: "JohnDoe@gmail.com",
-        date: "15/06/2022",
-        adresse: "25 rue des pinpin",
-        phone: "5432567890",
-        subscribe: "oui",
-        role: "ADMIN",
-    },
-    {
-        _id: "if35435435DSnfsdfsdf",
-        name: "John Doe",
-        email: "JohnDoe@gmail.com",
-        date: "15/06/2022",
-        adresse: "25 rue des pinpin",
-        phone: "5432567890",
-        subscribe: "oui",
-        role: "ADMIN",
-    },
-    {
-        _id: "if35435435vDSfsdfsdf",
-        name: "John Doe",
-        email: "JohnDoe@gmail.com",
-        date: "15/06/2022",
-        adresse: "25 rue des pinpin",
-        phone: "5432567890",
-        subscribe: "oui",
-        role: "ADMIN",
-    },
-    {
-        _id: "if3543543b5DSfsdfsdf",
-        name: "John Doe",
-        email: "JohnDoe@gmail.com",
-        date: "15/06/2022",
-        adresse: "25 rue des pinpin",
-        phone: "5432567890",
-        subscribe: "oui",
-        role: "ADMIN",
-    },
-    {
-        _id: "if35435435sDSfsdfsdf",
-        name: "John Doe",
-        email: "JohnDoe@gmail.com",
-        date: "15/06/2022",
-        adresse: "25 rue des pinpin",
-        phone: "5432567890",
-        subscribe: "oui",
-        role: "ADMIN",
-    },
-    {
-        _id: "if354354d35DSfsdfsdf",
-        name: "John Doe",
-        email: "JohnDoe@gmail.com",
-        date: "15/06/2022",
-        adresse: "25 rue des pinpin",
-        phone: "5432567890",
-        subscribe: "oui",
-        role: "ADMIN",
-    },
-];
 
 const FAKE_COLUMNS = [
     {
@@ -136,9 +48,23 @@ const FAKE_COLUMNS = [
 ];
 
 const UsersAdminDashboard = (props: Props) => {
-    const { data, error } = useSWR(`${baseUrlAdmin}/api/v1/category`, fetcher);
-    //TODO: Ajouter componentLoader + ResourceStore
-    return <TableComponent columns={FAKE_COLUMNS} data={FAKE_ROW_DATA} />;
+    return (
+        <>
+            <ComponentLoader<TUser>
+                endPoint={usersAdminStore.listEndPoint()}
+                render={(data) => {
+                    usersAdminStore.setItems(data?.data.items!);
+                    const resourcesStore = new ResourcesStore<TUser>("users", data?.data.items, usersAdminStore);
+
+                    return (
+                        <ResourcesProvider store={resourcesStore}>
+                            <TableComponent columns={FAKE_COLUMNS} />
+                        </ResourcesProvider>
+                    );
+                }}
+            />
+        </>
+    );
 };
 
 UsersAdminDashboard.getLayout = (page: ReactElement) => <RegularAdminLayout>{page}</RegularAdminLayout>;

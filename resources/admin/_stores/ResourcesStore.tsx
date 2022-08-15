@@ -16,9 +16,19 @@ export class ResourcesStore<T extends TObjWithId> {
         makeObservable(this);
     }
 
+    @action onDelete(itemId: string | number) {
+        this.store
+            ?.delete(itemId)
+            .then((_response) => {
+                this.load();
+            })
+            .catch((error) => console.log(error));
+    }
+
     @action load() {
         return this.providerStore?.list().then(
             action((response) => {
+                console.log("dans le load", response);
                 this.items = response.items;
                 this.count = response.count;
             }),

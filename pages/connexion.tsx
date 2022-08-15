@@ -30,7 +30,7 @@ function Connexion() {
 
     async function onSubmit(data: TCredentials) {
         try {
-            mutateUser(await authStore.login(data));
+            await mutateUser(await authStore.login(data));
         } catch (err) {
             console.error("ERROR WHILE CONNECTING : ", err);
             if (err instanceof AxiosError) {

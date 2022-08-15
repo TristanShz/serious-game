@@ -20,15 +20,21 @@ const LINK_ASIDE_ARRAY: TLINK_ASIDE_ARRAY = [
         logo: ListeLogo,
     },
     {
-        id: 1,
+        id: 2,
         urlName: urlsAdmin().users,
         label: "Utilisateurs",
         logo: ListeLogo,
     },
     {
-        id: 1,
+        id: 3,
         urlName: urlsAdmin().category,
         label: "Catégorie",
+        logo: ListeLogo,
+    },
+    {
+        id: 4,
+        urlName: urlsAdmin().formations,
+        label: "Formations",
         logo: ListeLogo,
     },
 ];
@@ -36,7 +42,7 @@ const LINK_ASIDE_ARRAY: TLINK_ASIDE_ARRAY = [
 export function AsideBar(props: Props) {
     const { replace } = useRouter();
     return (
-        <div className={"bg-black-95 min-h-screen p-3"}>
+        <div className={"bg-neutral-95 min-h-screen p-3"}>
             <div className={"flex gap-5"}>
                 <Image src={props.logo} alt={"dashboard logo"} />
                 <h2 className={"text-white"}>{props.title}</h2>
@@ -45,7 +51,7 @@ export function AsideBar(props: Props) {
                 <ul>
                     {LINK_ASIDE_ARRAY.map((link: TLINK_ASIDE, index: number) => {
                         return (
-                            <div key={index} className={"flex p-5 hover:bg-black-90 hover:cursor-pointer"}>
+                            <div key={index} className={"flex p-5 hover:bg-neutral-90 hover:cursor-pointer"}>
                                 <Image src={link.logo} alt={"liste logo"} />
                                 <li
                                     key={link.id}
