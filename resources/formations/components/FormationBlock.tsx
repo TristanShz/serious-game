@@ -6,13 +6,13 @@ import grandEst from "/public/images/grand-est.svg";
 import { Arrow } from "../../../_common/ui/Arrow";
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import { pages } from "../../../_config/pages";
 
 type Props = {
     title: string;
     entryLevel: TEntryLevel;
     regionSupport: boolean;
     alias: string;
+    redirectTo: string;
 };
 
 export function FormationBlock(props: Props) {
@@ -26,7 +26,7 @@ export function FormationBlock(props: Props) {
             }
             onMouseOver={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            onClick={() => push(pages.formations.path)}
+            onClick={() => push(props.redirectTo)}
         >
             <div className={"w-full h-52 xl:w-52 relative"}>
                 <Image

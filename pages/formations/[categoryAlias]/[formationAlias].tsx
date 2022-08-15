@@ -47,11 +47,17 @@ FormationAlias.getLayout = function getLayout(page: ReactElement) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const { items: categories } = await categoriesStore.list();
-    let formations: TFormationMdl[] = [];
+    const { items: formations } = await formationsStore.list();
 
     return {
-        paths: categories.map((category) => {
-            return { params: { categoryAlias: category.urlAlias } };
+        paths: formations.map((formation) => {
+            const categoryAlias = categories.find((category) => category._id === formation.category)!.urlAlias;
+            return {
+                params: {
+                    categoryAlias,
+                    formationAlias: formation.alias,
+                },
+            };
         }),
         fallback: "blocking",
     };
@@ -68,6 +74,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
                 value: res.data._id,
             },
         ]);
+        console.log(context.params);
         return {
             props: { formations, category: res.data },
             revalidate: 10,

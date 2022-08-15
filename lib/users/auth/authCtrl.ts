@@ -2,7 +2,6 @@ import { NextApiHandler } from "next";
 import { errorsBuilders } from "../../../_common/errors/errorBuilder";
 import { apiConfig } from "../../../_config/config";
 import { errorHandler, genericCtrlFn } from "../../../_common/_helpers/ctrlHelper";
-import { Req } from "../../../_common/_types/Req";
 import authService from "./authService";
 
 class AuthCtrl {
@@ -26,9 +25,9 @@ class AuthCtrl {
             if (req.query.apiKey !== apiConfig.apiKey) {
                 throw errorsBuilders.users.auth.unauthorized();
             }
-            const token = await authService.register(lastName, firstName, email, password);
+            const user = await authService.register(lastName, firstName, email, password);
 
-            res.status(201).send({ token });
+            res.status(201).send({ user });
         } catch (error) {
             errorHandler(res, error, AuthCtrl.ctrlName + ".signUp");
         }
@@ -50,13 +49,6 @@ class AuthCtrl {
         } catch (error) {
             errorHandler(res, error, AuthCtrl.ctrlName + ".resetPassword");
         }
-    };
-
-    refreshToken: NextApiHandler = (req, res) => {
-        return genericCtrlFn(res, AuthCtrl.ctrlName + ".refreshToken", () => {
-            console.log((req as Req).user?._id);
-            return authService.refreshToken((req as Req).user?._id);
-        });
     };
 
     confirmEmail: NextApiHandler = async (req, res) => {
