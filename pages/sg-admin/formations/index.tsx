@@ -10,65 +10,49 @@ import { ResourcesStore } from "../../../resources/admin/_stores/ResourcesStore"
 type Props = {};
 
 const FAKE_COLUMNS = [
-    {
-        key: "_id",
-        label: "ID",
-    },
-    {
-        key: "category",
-        label: "Catégorie",
-    },
-    {
-        key: "title",
-        label: "Titre",
-    },
-    {
-        key: "alias",
-        label: "Alias",
-    },
-    {
-        key: "description",
-        label: "Déscription",
-    },
-    {
-        key: "entryLevel",
-        label: "Niveau",
-    },
-    {
-        key: "regionSupport",
-        label: "Région",
-    },
-    {
-        key: "image",
-        label: "Image",
-    },
+  {
+    key: "_id",
+    label: "ID"
+  },
+  {
+    key: "category",
+    label: "Catégorie"
+  },
+  {
+    key: "title",
+    label: "Titre"
+  },
+  {
+    key: "alias",
+    label: "Alias"
+  }
 ];
 
 const FormationsAdminDashboard = (props: Props) => {
-    return (
-        <>
-            <ComponentLoader<TFormationMdl>
-                endPoint={formationsAdminStore.listEndPoint()}
-                render={(data) => {
-                    if (data) formationsAdminStore.setItems(data?.data.items);
-                    const resourcesStore = new ResourcesStore<TFormationMdl>(
-                        "formations",
-                        data?.data.items,
-                        formationsAdminStore,
-                    );
-                    return (
-                        <ResourcesProvider store={resourcesStore}>
-                            <TableComponent columns={FAKE_COLUMNS} />
-                        </ResourcesProvider>
-                    );
-                }}
-            />
-        </>
-    );
+  return (
+    <>
+      <ComponentLoader<TFormationMdl>
+        endPoint={formationsAdminStore.listEndPoint()}
+        render={(data) => {
+          if (data) formationsAdminStore.setItems(data?.data.items);
+          const resourcesStore = new ResourcesStore<TFormationMdl>(
+            "formations",
+            data?.data.items,
+            formationsAdminStore
+          );
+          return (
+            <ResourcesProvider store={resourcesStore}>
+              <TableComponent columns={FAKE_COLUMNS} />
+            </ResourcesProvider>
+          );
+        }}
+      />
+    </>
+  );
 };
 
 FormationsAdminDashboard.getLayout = function getLayout(page: ReactElement) {
-    return <RegularAdminLayout>{page}</RegularAdminLayout>;
+  return <RegularAdminLayout>{page}</RegularAdminLayout>;
 };
 
 export default FormationsAdminDashboard;
