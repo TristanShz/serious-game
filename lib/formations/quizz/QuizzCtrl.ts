@@ -8,3 +8,5 @@ class QuizzCtrl extends CrudCtrl<"quizz", IQuizzModel, IQuizzDocument> {
   }
 
 }
+
+export const QuizzCrtl = new QuizzCtrl();

@@ -36,10 +36,6 @@ export abstract class ApiPublicStore<TResource extends TObjWithId> extends ApiSt
     return httpClient.patch<TResource>(`${this.apiPath}/update/${data._id}`, _data, {}).then(({ data }) => data);
   }
 
-  new(item: Partial<TResource>) {
-    return httpClient.post<TResource>(`${this.apiPath}/new`, item);
-  }
-
   getEndPoint(): string {
     return `${this.apiPath}`;
   }
