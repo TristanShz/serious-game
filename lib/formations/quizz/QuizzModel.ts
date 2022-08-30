@@ -1,21 +1,14 @@
 import { TMongooseId } from "../../../_common/_types/MongooseTypes";
 import mongoose from "mongoose";
 import { QuestionSchema } from "./questions/QuestionModel";
-
-export enum TDifficultyLevel {
-  "ONE" = 1,
-  "TWO" = 2,
-  "THREE" = 3,
-  "FOUR" = 4,
-  "FIVE" = 5
-}
+import { QUIZZ_DIFFICULTY_LEVEL, TQuizzDifficultyLevel } from "../../../_config/config";
 
 export interface IQuizzModel {
   _id?: TMongooseId;
   name: string;
   description: string;
   duration: number;
-  difficulty: TDifficultyLevel;
+  difficulty: TQuizzDifficultyLevel;
   questions: [TMongooseId];
 }
 
@@ -26,7 +19,7 @@ const QuizzSchema = new mongoose.Schema<IQuizzDocument>({
   name: { type: String, trim: true },
   description: { type: String, trim: true },
   duration: { type: Number },
-  difficulty: { type: Number, enum: TDifficultyLevel },
+  difficulty: { type: Number, enum: QUIZZ_DIFFICULTY_LEVEL },
   questions: [{ type: QuestionSchema }]
 });
 

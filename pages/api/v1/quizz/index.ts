@@ -1,6 +1,6 @@
 import { apiHandler } from "../../../../lib/middlewares/apiHandler";
-import authCtrl from "../../../../lib/users/auth/authCtrl";
+import { quizzCrtl } from "../../../../lib/formations/quizz/QuizzCtrl";
 
 export default apiHandler({
-    post: authCtrl.askResetPassword,
+  get: quizzCrtl.get
 });

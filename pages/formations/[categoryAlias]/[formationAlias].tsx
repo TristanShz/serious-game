@@ -29,14 +29,11 @@ export const FormationAlias = (props: { formation: TFormationMdl, category: TCat
           className={"absolute inset-0 -z-10 bg-black opacity-20"}
         />
         <TitleBlock white smallText title={props.formation.title} text={props.formation.description}
-                    className={"w-3/5"} />
+                    className={"w-3/5"} regionSupport={props.formation.regionSupport} />
         <Line color={"white"} scroll className={"absolute bottom-10 w-3/5"} />
       </div>
       <div className={"w-[45%] flex flex-col self-center"}>
-        <div className={"flex my-12 items-center gap-4"}>
-          <p className={"uppercase font-bold"}>Liste de nos formations</p>
-          <div className={"h-0.4 bg-black flex-1"} />
-        </div>
+        
       </div>
     </div>
   );
@@ -68,7 +65,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (context.params && typeof context.params.formationAlias === "string") {
     const alias = context.params.formationAlias;
     const { data: formation } = await formationsStore.getOneByAlias(alias);
-    
+
     return {
       props: { formation },
       revalidate: 10

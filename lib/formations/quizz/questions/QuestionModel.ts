@@ -16,4 +16,3 @@ export const QuestionSchema = new mongoose.Schema<IQuestionDocument>({
   answers: [{ type: AnswerSchema }]
 });
 
-export default mongoose.models.Question || mongoose.model("Question", QuestionSchema);
