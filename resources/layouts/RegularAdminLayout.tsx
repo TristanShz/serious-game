@@ -11,7 +11,7 @@ export function RegularAdminLayout({ children }: Props) {
   return (
     <div className={clsx("flex")}>
       <AsideBar title={"admin Dashboard"} logo={DashboardLogo} />
-      <main className={"flex-1 flex items-center justify-center pr-8 pl-80 pt-8"}>{children}</main>
+      <main className={"flex-1 flex pl-80 p-8"}>{children}</main>
     </div>
   );
 }

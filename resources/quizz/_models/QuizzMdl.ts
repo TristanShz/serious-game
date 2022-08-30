@@ -1,12 +1,12 @@
 import { TMongooseId } from "../../../_common/_types/MongooseTypes";
-import { TDifficultyLevel } from "../../../lib/formations/quizz/QuizzModel";
+import { TQuizzDifficultyLevel } from "../../../_config/config";
 
 export type TQuizzBaseMdl = {
   _id: TMongooseId;
   name: string;
   description: string;
   duration: number;
-  difficulty: TDifficultyLevel;
+  difficulty: TQuizzDifficultyLevel;
   questions: TQuestionBaseMdl[]
 }
 

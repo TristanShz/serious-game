@@ -14,4 +14,3 @@ export const AnswerSchema = new mongoose.Schema<IAnswerDocument>({
   isTrue: { type: Boolean, select: false }
 });
 
-export default mongoose.models.Answer || mongoose.model("Answer", AnswerSchema);

@@ -36,6 +36,12 @@ const LINK_ASIDE_ARRAY: TLINK_ASIDE_ARRAY = [
     urlName: urlsAdmin().formations,
     label: "Formations",
     logo: ListeLogo
+  },
+  {
+    id: 5,
+    urlName: urlsAdmin().quizz,
+    label: "Quizz",
+    logo: ListeLogo
   }
 ];
 
