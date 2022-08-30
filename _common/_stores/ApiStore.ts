@@ -72,7 +72,7 @@ export abstract class ApiStore<TResource extends TObjWithId> implements IResourc
 
   create(data: any): Promise<TResource | undefined> {
     return httpClient
-      .post<TResource>(`${this.apiPath}/new`, {
+      .post<TResource>(`${this.apiPath}`, {
         ...data
       })
       .then(({ data }) => data);
