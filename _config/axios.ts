@@ -8,9 +8,9 @@ export const httpClient = axios.create({
 
 export const fetchUtils = {
   get: <T>(url: string) => httpClient.get<T>(url),
-  post: <T>(url: string, data?: any, bearerToken?: string) => httpClient.post<T>(url, data),
-  patch: <T>(url: string, data?: any, bearerToken?: string) => httpClient.patch<T>(url, data),
-  delete: <T>(url: string, bearerToken?: string) => httpClient.delete<T>(url),
+  post: <T>(url: string, data?: any) => httpClient.post<T>(url, data),
+  patch: <T>(url: string, data?: any) => httpClient.patch<T>(url, data),
+  delete: <T>(url: string) => httpClient.delete<T>(url),
 
   createBodyWithFiles: (jsonData: Record<string, any>, files: TFilesData) => {
     let filesPathIndexes: { [path: string]: number[][] } | undefined = undefined;

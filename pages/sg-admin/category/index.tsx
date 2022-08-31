@@ -1,13 +1,11 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { TableComponent } from "../../../_common/components/table/TableComponent";
-import { RegularAdminLayout } from "../../../resources/layouts/RegularAdminLayout";
+import { AdminLayout } from "../../../resources/layouts/AdminLayout";
 import { ComponentLoader } from "../../../_common/components/loader/ComponentLoader";
 import { categoryAdminStore } from "../../../resources/admin/category/_stores/categoryAdminStore";
 import { ResourcesStore } from "../../../resources/admin/_stores/ResourcesStore";
 import { TCategoryMdl } from "../../../resources/formations/categories/_model/CategoryMdl";
 import { ResourcesProvider } from "../../../resources/admin/_stores/ResourcesContext";
-
-type Props = {};
 
 const FAKE_COLUMNS = [
   {
@@ -28,7 +26,7 @@ const FAKE_COLUMNS = [
   }
 ];
 
-const CategoryAdminDashboard = (props: Props) => {
+const CategoryAdminDashboard = () => {
   return (
     <ComponentLoader<TCategoryMdl>
       endPoint={categoryAdminStore.listEndPoint()}
@@ -50,7 +48,7 @@ const CategoryAdminDashboard = (props: Props) => {
 };
 
 CategoryAdminDashboard.getLayout = function getLayout(page: ReactElement) {
-  return <RegularAdminLayout>{page}</RegularAdminLayout>;
+  return <AdminLayout>{page}</AdminLayout>;
 };
 
 export default CategoryAdminDashboard;

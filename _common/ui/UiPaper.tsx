@@ -1,8 +1,8 @@
-import React, { ForwardedRef, forwardRef, PropsWithChildren, ReactNode } from "react";
+import { ForwardedRef, forwardRef, PropsWithChildren, ReactNode } from "react";
 import clsx from "clsx";
 
 type Props = {
-  children: PropsWithChildren<React.ReactNode>;
+  children: PropsWithChildren<ReactNode>;
   className?: string;
   bigTitle?: string;
   mediumTitle?: string;

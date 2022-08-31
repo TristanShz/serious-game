@@ -1,13 +1,11 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { TableComponent } from "../../../_common/components/table/TableComponent";
-import { RegularAdminLayout } from "../../../resources/layouts/RegularAdminLayout";
+import { AdminLayout } from "../../../resources/layouts/AdminLayout";
 import { ComponentLoader } from "../../../_common/components/loader/ComponentLoader";
 import { ResourcesProvider } from "../../../resources/admin/_stores/ResourcesContext";
 import { ResourcesStore } from "../../../resources/admin/_stores/ResourcesStore";
 import { TQuizzMdl } from "../../../resources/quizz/_models/QuizzMdl";
 import { quizzAdminStore } from "../../../resources/admin/quizz/_stores/quizzAdminStore";
-
-type Props = {};
 
 const FAKE_COLUMNS = [
   {
@@ -28,7 +26,7 @@ const FAKE_COLUMNS = [
   }
 ];
 
-const QuizzAdminDashboard = (props: Props) => {
+const QuizzAdminDashboard = () => {
   return (
     <>
       <ComponentLoader<TQuizzMdl>
@@ -52,7 +50,7 @@ const QuizzAdminDashboard = (props: Props) => {
 };
 
 QuizzAdminDashboard.getLayout = function getLayout(page: ReactElement) {
-  return <RegularAdminLayout>{page}</RegularAdminLayout>;
+  return <AdminLayout>{page}</AdminLayout>;
 };
 
 export default QuizzAdminDashboard;

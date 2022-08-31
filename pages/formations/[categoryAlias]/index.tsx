@@ -13,7 +13,6 @@ import { FormationBlock } from "../../../resources/formations/components/Formati
 import { TFormationMdl } from "../../../resources/formations/_models/FormationMdl";
 
 export const CategoryAlias = (props: { formations: TFormationMdl[]; category: TCategoryMdl }) => {
-  console.log(props.formations);
   return (
     <div className={"w-screen flex flex-col"}>
       <div className={"relative w-full h-[calc(80vh)] flex justify-center items-center "}>
@@ -45,10 +44,14 @@ export const CategoryAlias = (props: { formations: TFormationMdl[]; category: TC
           <p className={"uppercase font-bold"}>Liste de nos formations</p>
           <div className={"h-0.4 bg-black flex-1"} />
         </div>
-        <FormationBlock
-          {...props.formations[0]}
-          redirectTo={pages.formation.path(props.category.urlAlias, props.formations[0].alias)}
-        />
+        {
+          props.formations.map(formation => {
+            return <FormationBlock key={formation._id}
+                                   {...props.formations[0]}
+                                   redirectTo={pages.formation.path(props.category.urlAlias, props.formations[0].alias)}
+            />;
+          })
+        }
       </div>
     </div>
   );

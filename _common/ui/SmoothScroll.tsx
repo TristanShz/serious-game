@@ -1,18 +1,7 @@
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { PropsWithChildren, useCallback, useLayoutEffect, useRef, useState } from "react";
 import ResizeObserver from "resize-observer-polyfill";
 
-import {
-  motion,
-  useSpring,
-  useTransform,
-  useViewportScroll,
-} from "framer-motion";
+import { motion, useSpring, useTransform, useViewportScroll } from "framer-motion";
 
 const SmoothScroll = ({ children }: PropsWithChildren) => {
   // scroll container

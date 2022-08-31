@@ -9,6 +9,9 @@ import { pages } from "../../../_config/pages";
 import { formationsStore } from "../../../resources/formations/_stores/FormationsStore";
 import { TFormationMdl } from "../../../resources/formations/_models/FormationMdl";
 import { TCategoryMdl } from "../../../resources/formations/categories/_model/CategoryMdl";
+import { Accordion } from "../../../_common/ui/Accordion";
+import { Section } from "../../../_common/ui/Section";
+import { Button } from "../../../_common/ui/Button";
 
 export const FormationAlias = (props: { formation: TFormationMdl, category: TCategoryMdl }) => {
   return (
@@ -32,8 +35,44 @@ export const FormationAlias = (props: { formation: TFormationMdl, category: TCat
                     className={"w-3/5"} regionSupport={props.formation.regionSupport} />
         <Line color={"white"} scroll className={"absolute bottom-10 w-3/5"} />
       </div>
-      <div className={"w-[45%] flex flex-col self-center"}>
-        
+      <div className={"w-[45%] flex flex-col self-center py-8 gap-16"}>
+        <Section title={"Contenu des tests"}>
+          <div>
+            <Accordion title={"POO Quizz niveau débutant"} content={<ul className={"px-4 py-2 "}>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+            </ul>} />
+            <Accordion title={"POO Quizz niveau débutant"} content={<ul className={"px-4 py-2 "}>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+            </ul>} />
+            <Accordion title={"POO Quizz niveau débutant"} content={<ul className={"px-4 py-2 "}>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+            </ul>} />
+          </div>
+        </Section>
+        <Section title={"Déroulement des tests"}>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. </p>
+          <br />
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. </p>
+        </Section>
+        <Button content={"Accéder aux tests"} color={"primary"} secondary large />
       </div>
     </div>
   );
