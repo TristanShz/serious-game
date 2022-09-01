@@ -1,14 +1,14 @@
 import { modalStore, ModalStore } from "./ModalStore";
-import React, { FC, PropsWithChildren, useContext } from "react";
+import { createContext, FC, PropsWithChildren, useContext } from "react";
 
-const ModalCtx = React.createContext(new ModalStore());
+const ModalCtx = createContext(new ModalStore());
 
 const ModalProvider: FC<{ store: typeof modalStore; children: PropsWithChildren<any> }> = ({ store, children }) => {
-    return <ModalCtx.Provider value={store}>{children}</ModalCtx.Provider>;
+  return <ModalCtx.Provider value={store}>{children}</ModalCtx.Provider>;
 };
 
 const useModalStore = () => {
-    return useContext(ModalCtx);
+  return useContext(ModalCtx);
 };
 
 export { ModalProvider, useModalStore };

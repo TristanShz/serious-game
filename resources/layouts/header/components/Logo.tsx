@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import logo from "/public/logo.svg";
 import { useMobxStores } from "../../../../_common/_stores/Stores";

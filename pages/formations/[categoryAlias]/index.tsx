@@ -13,6 +13,7 @@ import { FormationBlock } from "../../../resources/formations/components/Formati
 import { TFormationMdl } from "../../../resources/formations/_models/FormationMdl";
 
 export const CategoryAlias = (props: { formations: TFormationMdl[]; category: TCategoryMdl }) => {
+<<<<<<< HEAD
     console.log(props.formations);
     return (
         <div className={"w-screen flex flex-col"}>
@@ -52,6 +53,50 @@ export const CategoryAlias = (props: { formations: TFormationMdl[]; category: TC
             </div>
         </div>
     );
+=======
+  return (
+    <div className={"w-screen flex flex-col"}>
+      <div className={"relative w-full h-[calc(80vh)] flex justify-center items-center "}>
+        <motion.div
+          initial={{ y: "-100vh" }}
+          animate={{ y: 0 }}
+          transition={{ duration: 1 }}
+          className={
+            "absolute -z-20 inset-0 bg-cover bg-no-repeat bg-right-bottom bg-[url('/images/categories/categoryBg.png')]"
+          }
+        />
+        <motion.div
+          initial={{ y: "-100vh" }}
+          animate={{ y: 0 }}
+          transition={{ duration: 1 }}
+          className={"absolute inset-0 -z-10 bg-black opacity-20"}
+        />
+        <TitleBlock
+          white
+          smallText
+          title={props.category.pageTitle}
+          text={props.category.pageDescription}
+          className={"w-3/5"}
+        />
+        <Line color={"white"} scroll className={"absolute bottom-10 w-3/5"} />
+      </div>
+      <div className={"w-[45%] flex flex-col self-center"}>
+        <div className={"flex my-12 items-center gap-4"}>
+          <p className={"uppercase font-bold"}>Liste de nos formations</p>
+          <div className={"h-0.4 bg-black flex-1"} />
+        </div>
+        {
+          props.formations.map(formation => {
+            return <FormationBlock key={formation._id}
+                                   {...props.formations[0]}
+                                   redirectTo={pages.formation.path(props.category.urlAlias, props.formations[0].alias)}
+            />;
+          })
+        }
+      </div>
+    </div>
+  );
+>>>>>>> 20ca28e96f8fcedb81210d610cfded76021662ee
 };
 
 CategoryAlias.getLayout = function getLayout(page: ReactElement) {

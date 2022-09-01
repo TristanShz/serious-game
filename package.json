@@ -1,5 +1,5 @@
 {
-  "name": "sg-front",
+  "name": "serious-game",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -19,9 +19,7 @@
     "framer-motion": "^6.5.1",
     "fs": "^0.0.1-security",
     "fs-extra": "^10.1.0",
-    "iron-session": "^6.1.3",
-    "jsonwebtoken": "^8.5.1",
-    "jwt-decode": "^3.1.2",
+    "iron-session": "^6.2.0",
     "lodash": "^4.17.21",
     "mobx": "^6.6.1",
     "mobx-react": "^7.5.2",

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, FormProvider, useController, useForm } from "react-hook-form";
 import { TQuizzMdl } from "../../../quizz/_models/QuizzMdl";
 import { InputBlock } from "../../../../_common/ui/form/InputBlock";
@@ -11,8 +11,6 @@ import { Button } from "../../../../_common/ui/Button";
 import { urlsAdmin } from "../../../../_common/routes/routes";
 import { useRouter } from "next/router";
 import { quizzAdminStore } from "../_stores/quizzAdminStore";
-import Image from "next/image";
-import checkLogo from "../.././../../public/icons/Vector.svg";
 import clsx from "clsx";
 type Props = {
     data?: TQuizzMdl;

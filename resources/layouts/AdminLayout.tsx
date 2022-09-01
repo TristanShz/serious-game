@@ -1,17 +1,17 @@
 import { ReactNode } from "react";
-import { THeaderProps } from "./header/components/Header";
-import SideBar from "../admin/components/SideBar";
+import clsx from "clsx";
+import { AsideBar } from "../../_common/components/AsideBar";
+import DashboardLogo from "../../public/logo.svg";
 
 type Props = {
-    children: ReactNode;
-    headerProps?: THeaderProps;
+  children: ReactNode;
 };
 
-export default function AdminLayout({ children }: Props) {
-    return (
-        <div className={"flex bg-neutral-5"}>
-            <SideBar />
-            {children}
-        </div>
-    );
+export function AdminLayout({ children }: Props) {
+  return (
+    <div className={clsx("flex")}>
+      <AsideBar title={"admin Dashboard"} logo={DashboardLogo} />
+      <main className={"flex-1 flex pl-80 p-8"}>{children}</main>
+    </div>
+  );
 }

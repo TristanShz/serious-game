@@ -1,9 +1,9 @@
-import React, { ChangeEventHandler } from "react";
+import { ChangeEvent, ChangeEventHandler, forwardRef } from "react";
 import clsx from "clsx";
 
 type Props = {
   onChange?: ChangeEventHandler;
-  onValueChange?: (value: string, event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onValueChange?: (value: string, event: ChangeEvent<HTMLSelectElement>) => void;
   placeholder?: string;
   options: { label: string | number; value: any }[];
   className?: string;
@@ -12,7 +12,7 @@ type Props = {
   error?: { message: string };
 };
 
-export const Select = React.forwardRef<HTMLSelectElement, Props>(
+export const Select = forwardRef<HTMLSelectElement, Props>(
   ({ error, onValueChange, onChange, ...props }, ref) => {
     return (
       <>
@@ -25,6 +25,7 @@ export const Select = React.forwardRef<HTMLSelectElement, Props>(
             "w-full border border-solid border-2 border-selectBorderColor h-10 rounded-md focus:border-lightBlue"
           )}
           onChange={(event) => {
+            console.log(event.target.value);
             if (onChange) onChange(event);
             if (onValueChange) onValueChange(event.target.value, event);
           }}

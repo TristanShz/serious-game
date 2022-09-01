@@ -1,13 +1,13 @@
-import React, { ReactElement } from "react";
-import { RegularAdminLayout } from "../../../../resources/layouts/RegularAdminLayout";
+import { ReactElement } from "react";
+import { AdminLayout } from "../../../../resources/layouts/AdminLayout";
 import { FormationsForm } from "../../../../resources/formations/components/FormationsForm";
 
-export function NewFormation() {
-    return <FormationsForm />;
-}
+const NewFormation = () => {
+  return <FormationsForm />;
+};
 
 NewFormation.getLayout = function getLayout(page: ReactElement) {
-    return <RegularAdminLayout>{page}</RegularAdminLayout>;
+  return <AdminLayout>{page}</AdminLayout>;
 };
 
 export default NewFormation;

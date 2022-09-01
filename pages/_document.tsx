@@ -25,9 +25,9 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-      <body className={"bg-background text-black font-montserrat"}>
-        <Main />
-        <NextScript />
+      <body className={"bg-background text-neutral font-montserrat"}>
+      <Main />
+      <NextScript />
       </body>
     </Html>
   );

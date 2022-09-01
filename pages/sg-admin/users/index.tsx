@@ -1,13 +1,11 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { TableComponent } from "../../../_common/components/table/TableComponent";
-import { RegularAdminLayout } from "../../../resources/layouts/RegularAdminLayout";
+import { AdminLayout } from "../../../resources/layouts/AdminLayout";
 import { ComponentLoader } from "../../../_common/components/loader/ComponentLoader";
 import { usersAdminStore } from "../../../resources/admin/users/_stores/usersAdminStore";
 import { TUser } from "../../../resources/users/_models/UserMdl";
 import { ResourcesProvider } from "../../../resources/admin/_stores/ResourcesContext";
 import { ResourcesStore } from "../../../resources/admin/_stores/ResourcesStore";
-
-type Props = {};
 
 const FAKE_COLUMNS = [
   {
@@ -32,7 +30,7 @@ const FAKE_COLUMNS = [
   }
 ];
 
-const UsersAdminDashboard = (props: Props) => {
+const UsersAdminDashboard = () => {
   return (
     <>
       <ComponentLoader<TUser>
@@ -52,6 +50,6 @@ const UsersAdminDashboard = (props: Props) => {
   );
 };
 
-UsersAdminDashboard.getLayout = (page: ReactElement) => <RegularAdminLayout>{page}</RegularAdminLayout>;
+UsersAdminDashboard.getLayout = (page: ReactElement) => <AdminLayout>{page}</AdminLayout>;
 
 export default UsersAdminDashboard;

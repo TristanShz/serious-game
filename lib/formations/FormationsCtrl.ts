@@ -33,7 +33,6 @@ class FormationsCtrl extends CrudCtrl<"formations", IFormationModel, IFormationD
         query = buildQueryFromFilters(filters);
         delete query.password;
       }
-      console.log("LES QUERY : ", query);
       return Promise.all([
         this.crudService.list(withDisabled, undefined, query, offset, limit, sort),
         this.crudService.count(withDisabled, query)

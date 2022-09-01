@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { RegularAdminLayout } from "../../resources/layouts/RegularAdminLayout";
+import { AdminLayout } from "../../resources/layouts/AdminLayout";
 import { withSessionSsr } from "../../lib/withSession";
 import { USER_ROLES } from "../../lib/users/UserModel";
 import CategoryAdminDashboard from "./category";
@@ -17,21 +17,20 @@ const SgAdmin = () => {
 };
 
 SgAdmin.getLayout = function getLayout(page: ReactElement) {
-  return <RegularAdminLayout>{page}</RegularAdminLayout>;
+  return <AdminLayout>{page}</AdminLayout>;
 };
 
-export default SgAdmin;
 
 export const getServerSideProps = withSessionSsr(async function getServerSideProps({ req }) {
   if (req.session.user) {
     const user = req.session.user;
 
     if (user && user.role !== USER_ROLES.ADMIN) {
+      console.log("OUAIS JE SUIS LA");
       return {
         notFound: true
       };
     }
-
     return {
       props: {
         user: req.session.user
@@ -43,3 +42,5 @@ export const getServerSideProps = withSessionSsr(async function getServerSidePro
     };
   }
 });
+
+export default SgAdmin;

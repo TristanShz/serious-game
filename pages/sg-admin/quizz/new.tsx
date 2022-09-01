@@ -1,13 +1,13 @@
-import React, { ReactElement } from "react";
+import { AdminLayout } from "../../../resources/layouts/AdminLayout";
+import { ReactElement } from "react";
 import { QuizzForm } from "../../../resources/admin/quizz/components/QuizzForm";
-import { RegularAdminLayout } from "../../../resources/layouts/RegularAdminLayout";
 
-export function NewQuizz() {
+const NewQuizz = () => {
   return <QuizzForm />;
-}
+};
 
 NewQuizz.getLayout = function getLayout(page: ReactElement) {
-  return <RegularAdminLayout>{page}</RegularAdminLayout>;
+  return <AdminLayout>{page}</AdminLayout>;
 };
 
 export default NewQuizz;

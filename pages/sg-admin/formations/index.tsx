@@ -1,13 +1,11 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { TableComponent } from "../../../_common/components/table/TableComponent";
-import { RegularAdminLayout } from "../../../resources/layouts/RegularAdminLayout";
 import { ComponentLoader } from "../../../_common/components/loader/ComponentLoader";
 import { formationsAdminStore } from "../../../resources/admin/formations/_stores/formationsAdminStores";
 import { TFormationMdl } from "../../../resources/formations/_models/FormationMdl";
 import { ResourcesProvider } from "../../../resources/admin/_stores/ResourcesContext";
 import { ResourcesStore } from "../../../resources/admin/_stores/ResourcesStore";
-
-type Props = {};
+import { AdminLayout } from "../../../resources/layouts/AdminLayout";
 
 const FAKE_COLUMNS = [
   {
@@ -28,7 +26,7 @@ const FAKE_COLUMNS = [
   }
 ];
 
-const FormationsAdminDashboard = (props: Props) => {
+const FormationsAdminDashboard = () => {
   return (
     <>
       <ComponentLoader<TFormationMdl>
@@ -52,7 +50,7 @@ const FormationsAdminDashboard = (props: Props) => {
 };
 
 FormationsAdminDashboard.getLayout = function getLayout(page: ReactElement) {
-  return <RegularAdminLayout>{page}</RegularAdminLayout>;
+  return <AdminLayout>{page}</AdminLayout>;
 };
 
 export default FormationsAdminDashboard;

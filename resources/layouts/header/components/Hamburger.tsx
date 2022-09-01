@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useMobxStores } from "../../../../_common/_stores/Stores";
@@ -23,7 +23,7 @@ export const Hamburger = observer((props: Props) => {
       <p
         className={clsx("font-medium", {
           "text-white": menuStore.isOpen,
-          "text-primary": !menuStore.isOpen,
+          "text-primary": !menuStore.isOpen
         })}
       >
         MENU
@@ -33,26 +33,26 @@ export const Hamburger = observer((props: Props) => {
           "flex flex-col items-center justify-center ease-in-out duration-500",
           {
             "gap-1": !hover,
-            "gap-2": hover,
+            "gap-2": hover
           }
         )}
       >
         <div
           className={clsx("h-0.5 w-8 bg-primary", {
             "bg-white": menuStore.isOpen,
-            "bg-primary": !menuStore.isOpen,
+            "bg-primary": !menuStore.isOpen
           })}
         />
         <div
           className={clsx("h-0.5 w-8 bg-primary", {
             "bg-white": menuStore.isOpen,
-            "bg-primary": !menuStore.isOpen,
+            "bg-primary": !menuStore.isOpen
           })}
         />
         <div
           className={clsx("h-0.5 w-8 bg-primary", {
             "bg-white": menuStore.isOpen,
-            "bg-primary": !menuStore.isOpen,
+            "bg-primary": !menuStore.isOpen
           })}
         />
       </div>

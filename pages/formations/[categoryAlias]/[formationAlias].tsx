@@ -9,7 +9,11 @@ import { pages } from "../../../_config/pages";
 import { formationsStore } from "../../../resources/formations/_stores/FormationsStore";
 import { TFormationMdl } from "../../../resources/formations/_models/FormationMdl";
 import { TCategoryMdl } from "../../../resources/formations/categories/_model/CategoryMdl";
+import { Accordion } from "../../../_common/ui/Accordion";
+import { Section } from "../../../_common/ui/Section";
+import { Button } from "../../../_common/ui/Button";
 
+<<<<<<< HEAD
 export const FormationAlias = (props: { formation: TFormationMdl; category: TCategoryMdl }) => {
     return (
         <div className={"w-screen flex flex-col"}>
@@ -41,6 +45,71 @@ export const FormationAlias = (props: { formation: TFormationMdl; category: TCat
             <div className={"w-[45%] flex flex-col self-center"}></div>
         </div>
     );
+=======
+export const FormationAlias = (props: { formation: TFormationMdl, category: TCategoryMdl }) => {
+  return (
+    <div className={"w-screen flex flex-col"}>
+      <div className={"relative w-full h-[calc(80vh)] flex justify-center items-center "}>
+        <motion.div
+          initial={{ y: "-100vh" }}
+          animate={{ y: 0 }}
+          transition={{ duration: 1 }}
+          className={
+            "absolute -z-20 inset-0 bg-cover bg-no-repeat bg-right-bottom bg-[url('/images/categories/categoryBg.png')]"
+          }
+        />
+        <motion.div
+          initial={{ y: "-100vh" }}
+          animate={{ y: 0 }}
+          transition={{ duration: 1 }}
+          className={"absolute inset-0 -z-10 bg-black opacity-20"}
+        />
+        <TitleBlock white smallText title={props.formation.title} text={props.formation.description}
+                    className={"w-3/5"} regionSupport={props.formation.regionSupport} />
+        <Line color={"white"} scroll className={"absolute bottom-10 w-3/5"} />
+      </div>
+      <div className={"w-[45%] flex flex-col self-center py-8 gap-16"}>
+        <Section title={"Contenu des tests"}>
+          <div>
+            <Accordion title={"POO Quizz niveau débutant"} content={<ul className={"px-4 py-2 "}>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+            </ul>} />
+            <Accordion title={"POO Quizz niveau débutant"} content={<ul className={"px-4 py-2 "}>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+            </ul>} />
+            <Accordion title={"POO Quizz niveau débutant"} content={<ul className={"px-4 py-2 "}>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
+            </ul>} />
+          </div>
+        </Section>
+        <Section title={"Déroulement des tests"}>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. </p>
+          <br />
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. </p>
+        </Section>
+        <Button content={"Accéder aux tests"} color={"primary"} secondary large />
+      </div>
+    </div>
+  );
+>>>>>>> 20ca28e96f8fcedb81210d610cfded76021662ee
 };
 
 FormationAlias.getLayout = function getLayout(page: ReactElement) {

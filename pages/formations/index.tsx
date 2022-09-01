@@ -41,8 +41,8 @@ Formations.getLayout = function getLayout(page: ReactElement) {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-
   const { items: categories } = await categoriesStore.list();
+
   return {
     props: {
       categories
