@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 
 const EditFormation = () => {
   const { query } = useRouter();
+
   return (
     <ComponentLoader
       endPoint={formationsAdminStore.getEndPoint(query.itemId as string)}

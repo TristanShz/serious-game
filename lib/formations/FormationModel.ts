@@ -16,7 +16,7 @@ export interface IFormationModel {
   entryLevel: TEntryLevel;
   regionSupport: boolean;
   image?: string;
-  quizz?: TMongooseId;
+  quizz?: TMongooseId[];
 }
 
 export interface IFormationDocument extends Omit<IFormationModel, "_id">, mongoose.Document {
@@ -30,7 +30,7 @@ const FormationSchema = new mongoose.Schema<IFormationDocument>({
   entryLevel: { type: Number, enum: ENTRY_LEVELS },
   regionSupport: { type: Boolean },
   image: { type: String, trim: true, required: false },
-  quizz: { type: mongoose.Types.ObjectId, ref: QuizzModel, required: false }
+  quizz: { type: [Types.ObjectId], ref: QuizzModel, required: false }
 });
 
 export default mongoose.models.Formation || mongoose.model("Formation", FormationSchema);

@@ -6,7 +6,6 @@ class QuizzCtrl extends CrudCtrl<"quizz", IQuizzModel, IQuizzDocument> {
   constructor() {
     super("quizz", quizzService);
   }
-
 }
 
 export const quizzCrtl = new QuizzCtrl();

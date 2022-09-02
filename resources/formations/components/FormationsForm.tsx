@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import { TFormationMdl } from "../_models/FormationMdl";
+import { TFormationBaseMdl, TFormationMdl } from "../_models/FormationMdl";
 import { InputBlock } from "../../../_common/ui/form/InputBlock";
 import { Input } from "../../../_common/ui/form/Input";
 import { Button } from "../../../_common/ui/Button";
@@ -12,6 +12,8 @@ import { categoriesStore } from "../categories/_stores/categoriesStore";
 import { Select } from "../../../_common/ui/form/Select";
 import { slugify } from "../../../_common/_utils/alphaNumUtils";
 import { useMobxStores } from "../../../_common/_stores/Stores";
+import { TQuizzBaseMdl } from "../../quizz/_models/QuizzMdl";
+import { quizzAdminStore } from "../../admin/quizz/_stores/quizzAdminStore";
 
 type Props = {
   data?: any;
@@ -20,17 +22,21 @@ type Props = {
 export function FormationsForm(props: Props) {
   const { push } = useRouter();
   const { modalStore } = useMobxStores();
-  const form = useForm<TFormationMdl>({
+  const form = useForm<TFormationBaseMdl>({
     defaultValues: {
       ...props.data
     }
   });
+  // @ts-ignore
+  const quizzSelected = form.watch("quizz") ?? [];
   const [categories, setCategories] = useState<TCategoryMdl[] | undefined>(undefined);
-
+  const [quizzList, setQuizzList] = useState<TQuizzBaseMdl[] | undefined>(undefined);
   useEffect(() => {
     categoriesStore.list().then(({ items }) => {
-      console.log(items);
       setCategories(items);
+    });
+    quizzAdminStore.list().then(({ items }) => {
+      setQuizzList(items);
     });
   }, []);
 
@@ -101,6 +107,41 @@ export function FormationsForm(props: Props) {
                 render={({ field }) => <Input full {...field} type={"number"} />}
               />
             </InputBlock>
+            <div className={"flex gap-4"}>
+              <div className={"flex-1 flex flex-col items-center"}>
+                <p className={"font-medium text-lg"}>Quizz selectionnés</p>
+                <div className={"pt-4 flex flex-col gap-2"}>
+                  {
+                    quizzSelected.map(quizzId => {
+                      return <div key={quizzId}
+                                  className={"underline text-input-correct hover:cursor-pointer active:scale-98"}
+                                  onClick={() => {
+                                    form.setValue("quizz", quizzSelected.filter(id => id !== quizzId));
+                                    if (!quizzSelected.length) form.setValue("quizz", undefined);
+                                  }
+                                  }
+                      >{quizzList?.find(quizz => quizz._id === quizzId)?.name}</div>;
+                    })
+                  }
+                </div>
+              </div>
+              <div className={"w-0.5 bg-neutral"} />
+              <div className={"flex-1 flex flex-col items-center"}>
+                <p className={"font-medium text-lg"}>Quizz disponibles</p>
+                <div className={"pt-4 flex flex-col gap-2"}>
+                  {
+                    quizzList?.filter(quizz => !quizzSelected.includes(quizz._id)).map(quizz => {
+                      return <div className={"underline text-input-error hover:cursor-pointer active:scale-98"}
+                                  key={quizz._id} onClick={() => {
+                        console.log(typeof quizz._id);
+                        form.setValue("quizz", [...quizzSelected, quizz._id]);
+                      }
+                      }>{quizz.name}</div>;
+                    })
+                  }
+                </div>
+              </div>
+            </div>
             <div className={"flex gap-3 items-center justify-center"}>
               <Button content={"Valider"} type={"submit"} color={"gradient"} />
               <Button

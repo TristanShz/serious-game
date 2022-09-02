@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { TSessionData } from "../../withSession";
 
-export default function useUser({ redirectTo = "", redirectIfFound = false } = {}) {
+export default function useUser({ redirectTo = "/", redirectIfFound = false } = {}) {
   const { data: user, mutate: mutateUser } = useSWR("/users", fetcher<TSessionData>);
   const router = useRouter();
   useEffect(() => {
