@@ -1,5 +1,5 @@
 import { withIronSessionApiRoute } from "iron-session/next";
-import { apiConfig } from "../../../../_config/config";
+import { apiConfig } from "../../../../../_config/config";
 
 export default withIronSessionApiRoute(function userRoute(req, res) {
     if (req.session.user) {
