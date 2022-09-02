@@ -1,4 +1,4 @@
-# Doc Serious Game
+# Doc Serious GameStore
 
 Base de donnée :
 
@@ -13,34 +13,53 @@ db.createUser( {user: "SG_USER", pwd: "SG_PASS", roles:[{role: "dbOwner" , db:"s
 .env.local :
 
 ```jsx
-# Public Environment variables that can be used in the browser.
+#
+Public
+Environment
+variables
+that
+can
+be
+used in the
+browser.NEXT_PUBLIC_BASE_URL = "http://localhost:3000"
+NEXT_PUBLIC_REDIRECT_URI = "/api/callback"
+NEXT_PUBLIC_POST_LOGOUT_REDIRECT_URI = "/"
+NEXT_PUBLIC_SG_API = http
+://localhost:3000/api/v1
+NEXT_PUBLIC_SG_API_STATIC = http
+://localhost:3000
 
-NEXT_PUBLIC_BASE_URL="http://localhost:3000"
-NEXT_PUBLIC_REDIRECT_URI="/api/callback"
-NEXT_PUBLIC_POST_LOGOUT_REDIRECT_URI="/"
-NEXT_PUBLIC_SG_API=http://localhost:3000/api/v1
-NEXT_PUBLIC_SG_API_STATIC=http://localhost:3000
+#
+Secret
+environment
+variables
+only
+available
+to
+Node.js
+JWT_KEY = C93bUQ
+!T6iDM
 
-# Secret environment variables only available to Node.js
-JWT_KEY=C93bUQ!T6iDM
+SESSION_PASSWORD = "0919aa9ca42b4646f76aa59a8704e76089f53cb266a1190b5c4419cd1bafbf27"
 
-SESSION_PASSWORD="0919aa9ca42b4646f76aa59a8704e76089f53cb266a1190b5c4419cd1bafbf27"
+MONGO_PASS = "SG_PASS"
+MONGO_USER = "SG_USER"
+MONGO_URI = "127.0.0.1:27017/seriousgame"
 
-MONGO_PASS="SG_PASS"
-MONGO_USER="SG_USER"
-MONGO_URI="127.0.0.1:27017/seriousgame"
-
-NEXT_AUTH_URL=http://localhost:3000
-```# Doc Serious Game
+NEXT_AUTH_URL = http
+://localhost:3000
+```# Doc Serious GameStore
 
 Base de donnée :
 
-```bash
+```
+bash
 mongosh
 
-use seriousgame
+use
+seriousgame
 
-db.createUser( {user: "SG_USER", pwd: "SG_PASS", roles:[{role: "dbOwner" , db:"seriousgame"}]})
+db.createUser({ user: "SG_USER", pwd: "SG_PASS", roles: [{ role: "dbOwner", db: "seriousgame" }] })
 ```
 
 .env.local :

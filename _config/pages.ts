@@ -25,4 +25,9 @@ export const pages = {
         path: "/contact",
         name: "Besoin de renseignement ? Contactez nous",
     },
+    quizz: {
+        path: (id: string) => `/quizz/${id}`,
+        name: "Quizz"
+
+    }
 };
