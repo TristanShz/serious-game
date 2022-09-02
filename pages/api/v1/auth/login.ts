@@ -3,10 +3,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import authService from "../../../../lib/users/auth/authService";
 import { errorHandler } from "../../../../_common/_helpers/ctrlHelper";
 import { errorsBuilders } from "../../../../_common/errors/errorBuilder";
+import dbConnect from "../../../../lib/dbConnect";
 
 export default withSessionRoute(loginRoute);
 
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
+  await dbConnect();
   const { email, password } = req.body;
 
   try {

@@ -16,7 +16,7 @@ export type TQuizzMdl = TQuizzBaseMdl & {
 
 export type TQuestionBaseMdl = {
   text: string
-  answers: TAnswerBaseMdl
+  answers: TAnswerBaseMdl[]
 }
 export type TQuestionMdl = TQuestionBaseMdl & {
   answers: TAnswerMdl[]
@@ -27,4 +27,11 @@ export type TAnswerBaseMdl = {
 }
 export type TAnswerMdl = TAnswerBaseMdl & {
   isTrue: boolean
+}
+
+export type TResultBaseMdl = {
+  user: TMongooseId
+  quizz: TMongooseId
+  answers: (TQuestionBaseMdl & { answered: boolean })[]
+  rates: boolean[]
 }

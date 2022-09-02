@@ -50,6 +50,27 @@ module.exports = {
           10: "#e6e8eb",
           5: "#F3F4F5"
         },
+        quizz: {
+          background: "#F7F4EF",
+          title: {
+            DEFAULT: "#BA8B5B",
+            light: "#CDB39B"
+          },
+          question: {
+            DEFAULT: "#F0E9DF",
+            border: "#CDB39B"
+          },
+          answer: {
+            true: {
+              DEFAULT: "#D8E4BE",
+              darker: "#426113"
+            },
+            false: {
+              DEFAULT: "#E3775C",
+              darker: "#84402F"
+            }
+          }
+        },
         input: {
           correct: "#A6D55E",
           error: "#E3775C",
