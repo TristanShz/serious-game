@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { TSessionData } from "../../withSession";
 
-export default function useUser({ redirectTo = "/", redirectIfFound = false } = {}) {
-  const { data: user, mutate: mutateUser } = useSWR("/users", fetcher<TSessionData>);
+export default function useUser({ redirectTo = "", redirectIfFound = false } = {}) {
+  const { data: user, mutate: mutateUser } = useSWR("/users/session", fetcher<TSessionData>);
   const router = useRouter();
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)

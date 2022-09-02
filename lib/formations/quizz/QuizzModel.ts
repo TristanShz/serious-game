@@ -2,7 +2,6 @@ import { TMongooseId } from "../../../_common/_types/MongooseTypes";
 import mongoose from "mongoose";
 import { IQuestionModel, QuestionSchema } from "./questions/QuestionModel";
 import { QUIZZ_DIFFICULTY_LEVEL, TQuizzDifficultyLevel } from "../../../_config/config";
-import { TQuestionMdl } from "../../../resources/quizz/_models/QuizzMdl";
 
 export interface IQuizzModel {
     _id?: TMongooseId;
