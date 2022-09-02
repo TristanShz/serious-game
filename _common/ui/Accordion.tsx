@@ -1,9 +1,9 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 
 type Props = {
   title: string
-  content: ReactNode
+  content: string
 };
 
 export function Accordion(props: Props) {
@@ -16,7 +16,7 @@ export function Accordion(props: Props) {
         onClick={() => {
           state === "open" ? setState("close") : setState("open");
         }}>
-        <p>{props.title}</p>
+        <p className={"font-bold"}>{props.title}</p>
         <svg width="28" height="14" viewBox="0 0 28 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           {
             state === "open" ?
@@ -29,12 +29,11 @@ export function Accordion(props: Props) {
         </svg>
 
       </div>
-      <div className={clsx("bg-white border-l border-r border-neutral-10 ease-in-out duration-300", {
-        "max-h-0 overflow-hidden": state === "close",
-        "max-h-screen": state === "open"
-      })}>
-        {props.content}
-      </div>
+      <div dangerouslySetInnerHTML={{ __html: props.content }}
+           className={clsx("list-disc bg-white border-l border-r border-neutral-10 ease-in-out duration-300", {
+             "max-h-0 overflow-hidden": state === "close",
+             "max-h-screen py-4 px-8": state === "open"
+           })} />
     </>
   );
 }

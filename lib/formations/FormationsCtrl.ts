@@ -7,6 +7,7 @@ import formationsService from "./FormationsService";
 import { FilterQuery } from "mongoose";
 import { sanitizeObject } from "../../_common/_helpers/mongooseHelper";
 import { buildQueryFromFilters } from "../crud/crudFiltersHelper";
+import quizzService from "./quizz/QuizzService";
 
 class FormationsCtrl extends CrudCtrl<"formations", IFormationModel, IFormationDocument> {
   constructor() {
@@ -42,8 +43,14 @@ class FormationsCtrl extends CrudCtrl<"formations", IFormationModel, IFormationD
 
   getOneByAlias: NextApiHandler = async (req, res) => {
     return genericCtrlFn(res, this.ctrlName + ".getOneByAlias", async () => {
-      if (req.query.alias) return await formationsService.getOneByAlias(req.query.alias.toString());
-      else throw errorsBuilders.category.notFound();
+      if (req.query.alias) {
+        const formation = await formationsService.getOneByAlias(req.query.alias.toString());
+        const quizz = formation.quizz ? await Promise.all(formation.quizz.map(quizzId => {
+          return quizzService.get(quizzId);
+        })) : undefined;
+
+        return { ...formation, quizz };
+      } else throw errorsBuilders.category.notFound();
     });
   };
 }
