@@ -56,7 +56,8 @@ export const FormationAlias = (props: { formation: TFormationMdl, category: TCat
             ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
             nulla pariatur. </p>
         </Section>
-        <Button content={"Accéder aux tests"} color={"primary"} secondary large link={pages.quizz.path("1")} />
+        <Button content={"Accéder aux tests"} color={"primary"} secondary large
+                link={pages.quizz.path(props.formation._id)} />
       </div>
     </div>
   );

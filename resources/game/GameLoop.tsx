@@ -2,8 +2,9 @@ import { MutableRefObject, PropsWithChildren, useEffect, useRef } from "react";
 import { loadImages } from "./utils/loadImages";
 import { GameProvider } from "./_stores/GameContext";
 import { images } from "./utils/images";
-import { GameStore } from "./_stores/GameStore";
+import { GAME_STATE, GameStore } from "./_stores/GameStore";
 import { TQuizzBaseMdl } from "../quizz/_models/QuizzMdl";
+import ReturnButton from "./components/ReturnButton";
 
 
 const GameLoop = (props: { children?: PropsWithChildren<any> }) => {
@@ -64,7 +65,9 @@ const GameLoop = (props: { children?: PropsWithChildren<any> }) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      gameStore.timer--;
+      if (gameStore.gameState === GAME_STATE.LIVE) {
+        gameStore.timer--;
+      }
     }, 1000);
     const canvas = canvasRef.current;
     if (canvas) {
@@ -97,19 +100,20 @@ const GameLoop = (props: { children?: PropsWithChildren<any> }) => {
           gameStore.draw();
           gameStore.update();
 
-          // Calculate the number of seconds passed since the last frame
-          secondsPassed = (timeStamp - oldTimeStamp) / 1000;
-          oldTimeStamp = timeStamp;
-
-          // Calculate fps
-          fps = Math.round(1 / secondsPassed);
-
-          // Draw number to the screen
-          ctx.fillStyle = "white";
-          ctx.fillRect(0, 0, 150, 50);
-          ctx.font = "25px Arial";
-          ctx.fillStyle = "black";
-          ctx.fillText("FPS: " + fps, 10, 30);
+          // // Calculate the number of seconds passed since the last frame
+          // secondsPassed = (timeStamp - oldTimeStamp) / 1000;
+          // oldTimeStamp = timeStamp;
+          //
+          // // Calculate fps
+          // fps = Math.round(1 / secondsPassed);
+          //
+          // // Draw number to the screen
+          // ctx.fillStyle = "white";
+          // ctx.fillRect(0, 0, 150, 50);
+          // ctx.font = "25px Arial";
+          // ctx.fillStyle = "black";
+          // ctx.fillText("FPS: " + fps, 10, 30);
+          
           if (delta > interval && gameStore.player) {
             gameStore.player.frame++;
             then = now - (delta % interval);
@@ -124,6 +128,7 @@ const GameLoop = (props: { children?: PropsWithChildren<any> }) => {
   return (
     <GameProvider store={gameStore}>
       <canvas ref={canvasRef} width={GAME_WIDTH} height={GAME_HEIGHT} className={"absolute z-0"}></canvas>
+      <ReturnButton />
       {props.children && props.children}
     </GameProvider>
   );

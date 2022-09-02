@@ -20,7 +20,7 @@ export function Button(props: Props) {
     onClick={props.onClick}
     className={clsx(
       props.className,
-      "rounded-lg flex items-center hover:cursor-pointer active:scale-98 font-medium whitespace-nowrap transition-all",
+      "rounded-lg flex items-center hover:cursor-pointer active:scale-98 font-bold whitespace-nowrap transition-all",
       {
         "bg-gradient-to-r from-secondary to-primary hover:from-secondary-light hover:to-primary-light":
           props.color === "gradient" && !props.secondary,
@@ -44,8 +44,8 @@ export function Button(props: Props) {
     )}
   >
     {props.content}
-  </button>
+  </button>;
 
-  if (props.link) return <Link href={props.link}>{button}</Link>
-  return button
+  if (props.link) return <Link href={props.link}>{button}</Link>;
+  return button;
 }

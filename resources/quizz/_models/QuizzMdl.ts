@@ -10,6 +10,8 @@ export type TQuizzBaseMdl = {
   questions: TQuestionBaseMdl[];
 };
 
+export type TQuizzWithoutQuestions = Omit<TQuizzBaseMdl, "questions">
+
 export type TQuizzMdl = TQuizzBaseMdl & {
   question: TQuestionMdl[];
 };
