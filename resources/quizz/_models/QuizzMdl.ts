@@ -18,11 +18,21 @@ export type TQuizzMdl = TQuizzBaseMdl & {
 
 export type TQuestionBaseMdl = {
   text: string
-  answers: TAnswerBaseMdl[]
+  answers: {
+    a: TAnswerBaseMdl,
+    b: TAnswerBaseMdl,
+    c: TAnswerBaseMdl,
+    d: TAnswerBaseMdl,
+  }
 }
 
 export type TQuestionMdl = TQuestionBaseMdl & {
-  answers: TAnswerMdl[];
+  answers: {
+    a: TAnswerMdl,
+    b: TAnswerMdl,
+    c: TAnswerMdl,
+    d: TAnswerMdl,
+  }
 };
 
 export type TAnswerBaseMdl = {

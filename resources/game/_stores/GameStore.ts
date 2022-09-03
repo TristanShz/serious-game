@@ -77,4 +77,6 @@ export class GameStore implements IGameFunctions, IGameProperties {
   setGameState(state: GAME_STATE) {
     this.gameState = state
   }
+
+  checkResult()
 }

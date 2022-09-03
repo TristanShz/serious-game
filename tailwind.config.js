@@ -58,6 +58,7 @@ module.exports = {
           },
           question: {
             DEFAULT: "#F0E9DF",
+            selected: "#d5c0b0",
             border: "#CDB39B"
           },
           answer: {
