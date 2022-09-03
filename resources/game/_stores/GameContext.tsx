@@ -2,7 +2,7 @@ import { createContext, FC, PropsWithChildren, useContext } from "react";
 import { GameStore } from "./GameStore";
 import { TQuizzBaseMdl } from "../../quizz/_models/QuizzMdl";
 
-const fakeQuizz: TQuizzBaseMdl = {
+export const emptyQuizz: TQuizzBaseMdl = {
   _id: "",
   name: "",
   description: "",
@@ -15,7 +15,7 @@ const fakeQuizz: TQuizzBaseMdl = {
     }
   ]
 };
-const GameCtx = createContext(new GameStore(fakeQuizz, 0, 0));
+const GameCtx = createContext(new GameStore(emptyQuizz, 0, 0));
 
 const GameProvider: FC<{ store: GameStore; children: PropsWithChildren<any> }> = ({
                                                                                     store, children

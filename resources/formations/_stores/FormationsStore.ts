@@ -15,7 +15,6 @@ export class FormationsStore extends ApiPublicStore<TFormationMdl> {
     sort?: { [p: string]: number },
     filters?: TFilter[]
   ): Promise<{ count: number; items: TFormationMdl[] }> {
-    console.log("ENDPOINT ::::: ", this.customEndPoint(`/${categoryAlias}`, offset, limit, sort, filters));
     const promise = httpClient
       .get<{ count: number; items: TFormationMdl[] }>(
         this.customEndPoint(`/list/${categoryAlias}`, offset, limit, sort, filters)

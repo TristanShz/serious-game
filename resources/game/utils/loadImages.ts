@@ -8,9 +8,7 @@ export function loadImages(
 
   function onLoad() {
     loaded++;
-    console.log(loaded);
     if (loaded === images.length) {
-      console.log("complete");
       onComplete(0);
     }
   }

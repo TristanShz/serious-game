@@ -64,12 +64,11 @@ CategoryAlias.getLayout = function getLayout(page: ReactElement) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { items: categories } = await categoriesStore.list();
-
   return {
     paths: categories.map((category) => {
       return { params: { categoryAlias: category.urlAlias } };
     }),
-    fallback: "blocking"
+    fallback: false
   };
 };
 

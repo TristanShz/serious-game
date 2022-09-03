@@ -10,7 +10,7 @@ class QuizzCtrl extends CrudCtrl<"quizz", IQuizzModel, IQuizzDocument> {
   constructor() {
     super("quizz", quizzService);
   }
-
+  
   listByFormation: NextApiHandler = async (req, res) => {
     return genericCtrlFn(res, this.ctrlName + ".listByFormation", async () => {
       if (req.query.formationId) {
@@ -20,7 +20,7 @@ class QuizzCtrl extends CrudCtrl<"quizz", IQuizzModel, IQuizzDocument> {
             .then((quizzList) => quizzList);
         }
       }
-      throw errorsBuilders.category.notFound();
+      throw errorsBuilders.quizz.notFound();
     });
   };
 }

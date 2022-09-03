@@ -73,4 +73,8 @@ export class GameStore implements IGameFunctions, IGameProperties {
   update() {
     this.player?.update();
   }
+
+  setGameState(state: GAME_STATE) {
+    this.gameState = state
+  }
 }

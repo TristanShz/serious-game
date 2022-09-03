@@ -8,6 +8,8 @@ import { TQuizzWithoutQuestions } from "../../../resources/quizz/_models/QuizzMd
 import { useState } from "react";
 import { Button } from "../../../_common/ui/Button";
 import clsx from "clsx";
+import { pages } from "../../../_config/pages";
+import { useRouter } from "next/router";
 
 const NoSsrGameLoop = dynamic(() => import("../../../resources/game/GameLoop"), {
   loading: () => <p>Chargement...</p>,
@@ -27,7 +29,7 @@ const QuizzStartingPage = observer(({ quizzList }: Props) => {
     redirectTo: "/connexion",
     redirectIfFound: false
   });
-
+  const router = useRouter();
   const [quizzSelected, setQuizzSelected] = useState(0);
   const quizz = quizzList[quizzSelected];
 
@@ -58,11 +60,12 @@ const QuizzStartingPage = observer(({ quizzList }: Props) => {
               <label>Durée : {quizz.duration} minutes</label>
             </div>
             <div>
-              blabla
+
             </div>
           </div>
           <div className={"self-center"}>
-            <Button content={"DEMARRER LE QUIZZ"} color={"gradient"} large />
+            <Button content={"DEMARRER LE QUIZZ"} color={"gradient"} large
+                    link={pages.quizz.path(router.query.formationId as string, quizz._id)} />
           </div>
         </div>
       </GamePanel>
@@ -79,7 +82,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res, params }) =>
       }
     };
   } else {
-    res.setHeader("location", "/login");
+    res.setHeader("location", "/");
     res.statusCode = 302;
     res.end();
     return {

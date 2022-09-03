@@ -22,10 +22,10 @@ const Question = observer(() => {
             {
               gameStore.userAnswers?.answers.map((answer, index) => {
                 if (answer.answered) {
-                  return <div
-                    className={clsx("w-14 h-4 bg-stone-300", gameStore.userAnswers.rates[index] ? "bg-quizz-answer-true" : "bg-quizz-answer-false")}></div>;
+                  return <div key={index}
+                              className={clsx("w-14 h-4 bg-stone-300", gameStore.userAnswers.rates[index] ? "bg-quizz-answer-true" : "bg-quizz-answer-false")}></div>;
                 } else {
-                  return <div className={clsx("w-14 h-4 bg-stone-300")}></div>;
+                  return <div key={index} className={clsx("w-14 h-4 bg-stone-300")}></div>;
                 }
               })
             }

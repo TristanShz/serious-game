@@ -1,68 +1,20 @@
 import { MutableRefObject, PropsWithChildren, useEffect, useRef } from "react";
 import { loadImages } from "./utils/loadImages";
-import { GameProvider } from "./_stores/GameContext";
+import { emptyQuizz, GameProvider } from "./_stores/GameContext";
 import { images } from "./utils/images";
 import { GAME_STATE, GameStore } from "./_stores/GameStore";
 import { TQuizzBaseMdl } from "../quizz/_models/QuizzMdl";
 import ReturnButton from "./components/ReturnButton";
 
 
-const GameLoop = (props: { children?: PropsWithChildren<any> }) => {
+const GameLoop = (props: PropsWithChildren<{ quizz?: TQuizzBaseMdl }>) => {
 
-  const fakeQuizz: TQuizzBaseMdl = {
-    _id: "dwjio3893j2d89",
-    name: "Quizz POO",
-    description: "blablabla",
-    duration: 10,
-    difficulty: 2,
-    questions: [
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "La réponse c" }, { text: "La réponse d" }]
-      },
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "la réponse c" }, { text: "La réponse d" }]
-      },
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "la réponse c" }, { text: "La réponse d" }]
-      },
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "la réponse c" }, { text: "La réponse d" }]
-      },
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "la réponse c" }, { text: "La réponse d" }]
-      },
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "la réponse c" }, { text: "La réponse d" }]
-      },
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "la réponse c" }, { text: "La réponse d" }]
-      },
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "la réponse c" }, { text: "La réponse d" }]
-      },
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "la réponse c" }, { text: "La réponse d" }]
-      },
-      {
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing ?",
-        answers: [{ text: "La reponse a" }, { text: "La réponse b" }, { text: "la réponse c" }, { text: "La réponse d" }]
-      }
-    ]
-  };
   const canvasRef: MutableRefObject<HTMLCanvasElement | null> = useRef(null);
   const GAME_WIDTH = window.innerWidth;
   const GAME_HEIGHT = window.innerHeight;
-  const gameStore = new GameStore(fakeQuizz, GAME_WIDTH, GAME_HEIGHT);
-
+  const gameStore = new GameStore(props.quizz ?? emptyQuizz, GAME_WIDTH, GAME_HEIGHT);
+  if (props.quizz) gameStore.setGameState(GAME_STATE.LIVE);
+  
   useEffect(() => {
     const timer = setInterval(() => {
       if (gameStore.gameState === GAME_STATE.LIVE) {
@@ -113,7 +65,7 @@ const GameLoop = (props: { children?: PropsWithChildren<any> }) => {
           // ctx.font = "25px Arial";
           // ctx.fillStyle = "black";
           // ctx.fillText("FPS: " + fps, 10, 30);
-          
+
           if (delta > interval && gameStore.player) {
             gameStore.player.frame++;
             then = now - (delta % interval);

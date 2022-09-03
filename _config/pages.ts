@@ -25,8 +25,13 @@ export const pages = {
     path: "/contact",
     name: "Besoin de renseignement ? Contactez nous"
   },
-  quizz: {
+  quizzStartingPage: {
     path: (formationId: string) => `/quizz/${formationId}`,
+    name: "Quizz"
+
+  },
+  quizz: {
+    path: (formationId: string, quizzId: string) => `/quizz/${formationId}/${quizzId}`,
     name: "Quizz"
 
   }
