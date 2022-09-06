@@ -3,6 +3,10 @@ import { ObjectId } from "mongodb";
 import _ from "lodash";
 import { TMongooseId } from "../_types/MongooseTypes";
 
+export function deepEqualBetweenObjects(obj1: object, obj2: object) {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+}
+
 export function flattenObject(
   baseObject?: any,
   path = "",

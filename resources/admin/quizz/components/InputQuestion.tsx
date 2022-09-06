@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "../../../../_common/ui/form/Input";
 import { Button } from "../../../../_common/ui/Button";
-import { TQuestion } from "./QuizzForm";
+import { TQuestionMdl } from "../../../quizz/_models/QuizzMdl";
 
 type Props = {
     setQuestions: (arg: any) => void;
@@ -9,10 +9,10 @@ type Props = {
 };
 
 const INITIAL_STATE = {
-    responseA: { text: "", isTrue: false },
-    responseB: { text: "", isTrue: false },
-    responseC: { text: "", isTrue: false },
-    responseD: { text: "", isTrue: false },
+    a: { text: "", isTrue: false },
+    b: { text: "", isTrue: false },
+    c: { text: "", isTrue: false },
+    d: { text: "", isTrue: false },
 };
 
 export function InputQuestion(props: Props) {
@@ -36,11 +36,11 @@ export function InputQuestion(props: Props) {
                     <Input
                         type={"text"}
                         full
-                        value={answers.responseA.text}
+                        value={answers.a.text}
                         onChange={(event) => {
                             setAnswers({
                                 ...answers,
-                                responseA: { text: event.target.value, isTrue: answers.responseA.isTrue },
+                                a: { text: event.target.value, isTrue: answers.a.isTrue },
                             });
                         }}
                     />
@@ -48,11 +48,11 @@ export function InputQuestion(props: Props) {
                         <input
                             type={"checkbox"}
                             name={"isTrue"}
-                            checked={answers.responseA.isTrue}
+                            checked={answers.a.isTrue}
                             onChange={() =>
                                 setAnswers({
                                     ...answers,
-                                    responseA: { text: answers.responseA.text, isTrue: !answers.responseA.isTrue },
+                                    a: { text: answers.a.text, isTrue: !answers.a.isTrue },
                                 })
                             }
                         />
@@ -64,11 +64,11 @@ export function InputQuestion(props: Props) {
                     <Input
                         type={"text"}
                         full
-                        value={answers.responseB.text}
+                        value={answers.b.text}
                         onChange={(event) => {
                             setAnswers({
                                 ...answers,
-                                responseB: { text: event.target.value, isTrue: answers.responseB.isTrue },
+                                b: { text: event.target.value, isTrue: answers.b.isTrue },
                             });
                         }}
                     />
@@ -76,11 +76,11 @@ export function InputQuestion(props: Props) {
                         <input
                             type={"checkbox"}
                             name={"isTrue"}
-                            checked={answers.responseB.isTrue}
+                            checked={answers.b.isTrue}
                             onChange={() =>
                                 setAnswers({
                                     ...answers,
-                                    responseB: { text: answers.responseB.text, isTrue: !answers.responseB.isTrue },
+                                    b: { text: answers.b.text, isTrue: !answers.b.isTrue },
                                 })
                             }
                         />
@@ -92,11 +92,11 @@ export function InputQuestion(props: Props) {
                     <Input
                         type={"text"}
                         full
-                        value={answers.responseC.text}
+                        value={answers.c.text}
                         onChange={(event) => {
                             setAnswers({
                                 ...answers,
-                                responseC: { text: event.target.value, isTrue: answers.responseC.isTrue },
+                                c: { text: event.target.value, isTrue: answers.c.isTrue },
                             });
                         }}
                     />
@@ -104,11 +104,11 @@ export function InputQuestion(props: Props) {
                         <input
                             type={"checkbox"}
                             name={"isTrue"}
-                            checked={answers.responseC.isTrue}
+                            checked={answers.c.isTrue}
                             onChange={() =>
                                 setAnswers({
                                     ...answers,
-                                    responseC: { text: answers.responseC.text, isTrue: !answers.responseC.isTrue },
+                                    c: { text: answers.c.text, isTrue: !answers.c.isTrue },
                                 })
                             }
                         />
@@ -120,11 +120,11 @@ export function InputQuestion(props: Props) {
                     <Input
                         type={"text"}
                         full
-                        value={answers.responseD.text}
+                        value={answers.d.text}
                         onChange={(event) => {
                             setAnswers({
                                 ...answers,
-                                responseD: { text: event.target.value, isTrue: answers.responseD.isTrue },
+                                d: { text: event.target.value, isTrue: answers.d.isTrue },
                             });
                         }}
                     />
@@ -132,11 +132,11 @@ export function InputQuestion(props: Props) {
                         <input
                             type={"checkbox"}
                             name={"isTrue"}
-                            checked={answers.responseD.isTrue}
+                            checked={answers.d.isTrue}
                             onChange={() => {
                                 const test = {
                                     ...answers,
-                                    responseD: { text: answers.responseD.text, isTrue: !answers.responseD.isTrue },
+                                    d: { text: answers.d.text, isTrue: !answers.d.isTrue },
                                 };
                                 setAnswers(test);
                             }}
@@ -158,8 +158,8 @@ export function InputQuestion(props: Props) {
                             return answer[1].text;
                         });
                         if (checkIsTrue.includes(true) && question.length > 0 && !checkAnswers.includes("")) {
-                            const questionObject = { ...answers, question };
-                            props.setQuestions((state: TQuestion[]) => [...state, questionObject]);
+                            const questionObject = { answers: { ...answers }, text: question };
+                            props.setQuestions((state: TQuestionMdl[]) => [...state, questionObject]);
                             setAnswers(INITIAL_STATE);
                             setQuestion("");
                             setErrorMessage("");

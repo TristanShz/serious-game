@@ -5,6 +5,10 @@ class ResultsService extends CrudService<"results", IResultsModel, IResultsDocum
     constructor() {
         super("results", ResultsModel, false);
     }
+
+    getResults(quizzId: string, userId: string) {
+        return ResultsModel.findOne({ quizz: quizzId, user: userId });
+    }
 }
 
 export const resultsService = new ResultsService();

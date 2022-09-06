@@ -2,49 +2,51 @@ import { TMongooseId } from "../../../_common/_types/MongooseTypes";
 import { TQuizzDifficultyLevel } from "../../../_config/config";
 
 export type TQuizzBaseMdl = {
-  _id: TMongooseId;
-  name: string;
-  description: string;
-  duration: number;
-  difficulty: TQuizzDifficultyLevel;
-  questions: TQuestionBaseMdl[];
+    _id: TMongooseId;
+    name: string;
+    description: string;
+    duration: number;
+    difficulty: TQuizzDifficultyLevel;
+    questions: TQuestionBaseMdl[];
 };
 
-export type TQuizzWithoutQuestions = Omit<TQuizzBaseMdl, "questions">
+export type TQuizzWithoutQuestions = Omit<TQuizzBaseMdl, "questions">;
 
 export type TQuizzMdl = TQuizzBaseMdl & {
-  question: TQuestionMdl[];
+    question: TQuestionMdl[];
 };
 
 export type TQuestionBaseMdl = {
-  text: string
-  answers: {
-    a: TAnswerBaseMdl,
-    b: TAnswerBaseMdl,
-    c: TAnswerBaseMdl,
-    d: TAnswerBaseMdl,
-  }
-}
+    _id: string;
+    text: string;
+    answers: {
+        a: TAnswerBaseMdl;
+        b: TAnswerBaseMdl;
+        c: TAnswerBaseMdl;
+        d: TAnswerBaseMdl;
+    };
+};
 
 export type TQuestionMdl = TQuestionBaseMdl & {
-  answers: {
-    a: TAnswerMdl,
-    b: TAnswerMdl,
-    c: TAnswerMdl,
-    d: TAnswerMdl,
-  }
+    answers: {
+        a: TAnswerMdl;
+        b: TAnswerMdl;
+        c: TAnswerMdl;
+        d: TAnswerMdl;
+    };
 };
 
 export type TAnswerBaseMdl = {
-  text: string;
+    _id: string;
+    text: string;
 };
 export type TAnswerMdl = TAnswerBaseMdl & {
-  isTrue: boolean
-}
+    isTrue: boolean;
+};
 
 export type TResultBaseMdl = {
-  user: TMongooseId
-  quizz: TMongooseId
-  answers: (TQuestionBaseMdl & { answered: boolean })[]
-  rates: boolean[]
-}
+    user: TMongooseId;
+    quizz: TMongooseId;
+    responses: { question: Partial<TQuestionMdl>; userResponse: { a: boolean; b: boolean; c: boolean; d: boolean } }[];
+    rates: boolean[];
+};
