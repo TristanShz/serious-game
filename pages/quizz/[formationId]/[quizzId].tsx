@@ -4,6 +4,7 @@ import { GetServerSideProps } from "next";
 import { quizzStore } from "../../../resources/quizz/_stores/QuizzStore";
 import { TQuizzBaseMdl } from "../../../resources/quizz/_models/QuizzMdl";
 import useUser from "../../../lib/users/_helpers/useUser";
+import Head from "next/head";
 
 const GameLoop = dynamic(() => import("../../../resources/game/GameLoop"), {
     loading: () => <p>Chargement...</p>,
@@ -26,11 +27,16 @@ const QuizzPage = observer(({ quizz }: Props) => {
         redirectIfFound: false,
     });
     return (
-        <GameLoop quizz={quizz} user={user?.data}>
-            <GamePanel>
-                <Question />
-            </GamePanel>
-        </GameLoop>
+        <>
+            <Head>
+                <title>{quizz.name}</title>
+            </Head>
+            <GameLoop quizz={quizz} user={user?.data}>
+                <GamePanel>
+                    <Question />
+                </GamePanel>
+            </GameLoop>
+        </>
     );
 });
 

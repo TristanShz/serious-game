@@ -41,7 +41,7 @@ const ReturnButton = observer(() => {
                     "bg-quizz-background shadow-xl absolute z-10 left-4 bg-white p-3 rounded-b-full hover:cursor-pointer"
                 }
                 onClick={() => {
-                    if (gameStore.getGameState() === GAME_STATE.LIVE) {
+                    if (gameStore.gameState === GAME_STATE.LIVE) {
                         setModalOpen(true);
                     } else {
                         router.back();
