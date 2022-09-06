@@ -9,15 +9,16 @@ import { IGameFunctions } from "../_models/IGameFunctions";
 import { IGroundSection } from "../_models/IGroundSection";
 import { InputHandler } from "../utils/inputHandler";
 import { isQuestionModel, TQuizzBaseMdl, TResultBaseMdl } from "../../quizz/_models/QuizzMdl";
-import { makeAutoObservable } from "mobx";
 import { TSessionData } from "../../../lib/withSession";
 import { emptyQuizz, emptyUser } from "./GameContext";
 import { resultsStore } from "../../results/_stores/resultsStore";
 import { deepEqualBetweenObjects } from "../../../_common/_utils/objectHelper";
+import { makeAutoObservable } from "mobx";
 
 export enum GAME_STATE {
     START,
     LIVE,
+    SWITCHING_LEVEL,
     END,
 }
 
@@ -32,7 +33,7 @@ export class GameStore implements IGameFunctions, IGameProperties {
     background: IBackground | undefined = undefined;
     level: ILevelGeneration | undefined = undefined;
 
-    quizz: TQuizzBaseMdl;
+    readonly quizz: TQuizzBaseMdl;
     currentQuestion: number;
     result: TResultBaseMdl;
 
@@ -44,7 +45,6 @@ export class GameStore implements IGameFunctions, IGameProperties {
     ) {
         makeAutoObservable(this);
         this.quizz = quizz;
-        this._timer = this.quizz.duration * 60;
         this.result = {
             user: user._id,
             quizz: this.quizz._id,
@@ -52,6 +52,8 @@ export class GameStore implements IGameFunctions, IGameProperties {
         };
         this.updateGameSize(gameWidth, gameHeight);
         this.currentQuestion = 1;
+
+        this._timer = this.quizz.duration * 60;
         this._gameState = GAME_STATE.START;
     }
 
@@ -61,17 +63,17 @@ export class GameStore implements IGameFunctions, IGameProperties {
         return this._timer;
     }
 
-    set timer(value: number) {
-        this._timer = value;
-    }
-
     private _gameState: GAME_STATE;
 
     get gameState(): GAME_STATE {
         return this._gameState;
     }
 
-    set gameState(value: GAME_STATE) {
+    setTimer(value: number) {
+        this._timer = value;
+    }
+
+    setGameState(value: GAME_STATE) {
         this._gameState = value;
     }
 
@@ -108,6 +110,7 @@ export class GameStore implements IGameFunctions, IGameProperties {
             ],
         });
         this.result = updatedResults;
+        this.setGameState(GAME_STATE.SWITCHING_LEVEL);
     }
 
     checkAnswer(index: number) {

@@ -15,11 +15,11 @@ const GameLoop = observer((props: PropsWithChildren<{ quizz?: TQuizzBaseMdl; use
     const GAME_HEIGHT = window.innerHeight;
 
     const gameStore = new GameStore(props.quizz, props.user, GAME_WIDTH, GAME_HEIGHT);
-    if (props.quizz && props.user) gameStore.gameState = GAME_STATE.LIVE;
+    if (props.quizz && props.user) gameStore.setGameState(GAME_STATE.LIVE);
     useEffect(() => {
         const timer = setInterval(() => {
             if (gameStore.gameState === GAME_STATE.LIVE) {
-                gameStore.timer--;
+                gameStore.setTimer(gameStore.timer - 1);
             }
         }, 1000);
         const canvas = canvasRef.current;

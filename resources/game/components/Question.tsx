@@ -1,13 +1,17 @@
 import { useGameStore } from "../_stores/GameContext";
 import clsx from "clsx";
-import { Answer } from "./Answer";
 import { Timer } from "./Timer";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
+import Answer from "./Answer";
+import { isQuestionModel } from "../../quizz/_models/QuizzMdl";
 
 const Question = observer(() => {
     const gameStore = useGameStore();
     const question = gameStore.quizz.questions[gameStore.currentQuestion - 1];
+    const result = gameStore.result.responses.find((response) =>
+        isQuestionModel(response.question) ? response.question._id == question._id : undefined,
+    );
     const [checkedQuestion, setCheckedQuestion] = useState<number[]>([]);
     return (
         <div className={"px-8 py-12 flex flex-col justify-between h-full"}>
@@ -52,6 +56,17 @@ const Question = observer(() => {
                             key={answer.text}
                             text={answer.text}
                             checked={checkedQuestion.includes(index)}
+                            isTrue={
+                                result && isQuestionModel(result.question)
+                                    ? Object.values(result.question.answers)[index].isTrue
+                                    : false
+                            }
+                            isFalse={
+                                result && isQuestionModel(result.question)
+                                    ? Object.values(result.userResponse)[index] !==
+                                      Object.values(result.question.answers)[index].isTrue
+                                    : false
+                            }
                             onClick={() => {
                                 if (checkedQuestion.includes(index)) {
                                     setCheckedQuestion(
