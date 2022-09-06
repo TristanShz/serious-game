@@ -7,54 +7,65 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { pages } from "../_config/pages";
 import useUser from "../lib/users/_helpers/useUser";
+import { Meta } from "../resources/layouts/Meta";
+import { useRouter } from "next/router";
 
 function Inscription() {
-  //Redirect home if user is logged in
-  useUser({
-    redirectTo: "/",
-    redirectIfFound: true
-  });
+    //Redirect home if user is logged in
+    useUser({
+        redirectTo: "/",
+        redirectIfFound: true,
+    });
+    const { basePath } = useRouter();
 
-  return (
-    <div
-      className={
-        "w-screen md:h-screen overflow-y-auto overflow-x-hidden flex flex-col-reverse md:flex-row gap-6 md:gap-0"
-      }
-    >
-      <div
-        className={
-          "w-full md:w-2/5 flex-1 h-fit md:h-full flex flex-col justify-start md:justify-center items-start md:items-center px-8 md:px-12 lg:px-24 gap-3 lg:gap-6 pb-6 md:pb-0"
-        }
-      >
-        <h2 className={"self-start font-bold text-xl md:text-2xl lg:text-3xl"}>S&rsquo;inscrire</h2>
-        <RegisterForm />
-        <Link href={pages.login.path}>
-          <a className={"hover:underline"}>
-            Vous avez déja un compte ? <span className={"text-primary"}>Se connecter</span>
-          </a>
-        </Link>
-      </div>
-      <motion.div
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.3 }}
-        className={
-          "w-full md:w-3/5 md:h-full flex-1 md:flex-0 bg-[url('/images/blueBackground.png')] bg-cover bg-no-repeat bg-right-bottom flex justify-center items-center px-8 md:px-16 lg:px-32 xl:px-40 mt-[90px] py-6 md:mt-0 md:pt-0"
-        }
-      >
-        <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} transition={{ type: "spring", stiffness: 100 }}>
-          <TitleBlock
-            h1Title
-            title={"Rejoignez l'aventure Metz Numeric School"}
-            text={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            }
-            className={"text-neutral-10"}
-          />
-        </motion.div>
-      </motion.div>
-    </div>
-  );
+    return (
+        <>
+            <Meta title={"Metz Numeric Game : Inscription !"} description={""} url={basePath} />
+
+            <div
+                className={
+                    "w-screen md:h-screen overflow-y-auto overflow-x-hidden flex flex-col-reverse md:flex-row gap-6 md:gap-0"
+                }
+            >
+                <div
+                    className={
+                        "w-full md:w-2/5 flex-1 h-fit md:h-full flex flex-col justify-start md:justify-center items-start md:items-center px-8 md:px-12 lg:px-24 gap-3 lg:gap-6 pb-6 md:pb-0"
+                    }
+                >
+                    <h2 className={"self-start font-bold text-xl md:text-2xl lg:text-3xl"}>S&rsquo;inscrire</h2>
+                    <RegisterForm />
+                    <Link href={pages.login.path}>
+                        <a className={"hover:underline"}>
+                            Vous avez déja un compte ? <span className={"text-primary"}>Se connecter</span>
+                        </a>
+                    </Link>
+                </div>
+                <motion.div
+                    initial={{ x: "100%" }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={
+                        "w-full md:w-3/5 md:h-full flex-1 md:flex-0 bg-[url('/images/blueBackground.png')] bg-cover bg-no-repeat bg-right-bottom flex justify-center items-center px-8 md:px-16 lg:px-32 xl:px-40 mt-[90px] py-6 md:mt-0 md:pt-0"
+                    }
+                >
+                    <motion.div
+                        initial={{ x: "100%" }}
+                        animate={{ x: 0 }}
+                        transition={{ type: "spring", stiffness: 100 }}
+                    >
+                        <TitleBlock
+                            h1Title
+                            title={"Rejoignez l'aventure Metz Numeric School"}
+                            text={
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                            }
+                            className={"text-neutral-10"}
+                        />
+                    </motion.div>
+                </motion.div>
+            </div>
+        </>
+    );
 }
 
 Inscription.getLayout = function getLayout(page: ReactElement) {
