@@ -1,10 +1,10 @@
 import { CrudCtrl } from "../../../crud/CrudCtrl";
-import { IResultsDocument, IResultsModel } from "./ResultsModel";
+import { IResultsBaseModel, IResultsDocument, IResultsModel } from "./ResultsModel";
 import { resultsService } from "./ResultsService";
 import { NextApiHandler } from "next";
 import { genericCtrlFn } from "../../../../_common/_helpers/ctrlHelper";
 import { quizzService } from "../QuizzService";
-import { deepEqualBetweenObjects } from "../../../../_common/_helpers/objectHelper";
+import { errorsBuilders } from "../../../../_common/errors/errorBuilder";
 
 class ResultsCtrl extends CrudCtrl<"results", IResultsModel, IResultsDocument> {
     constructor() {
@@ -12,16 +12,21 @@ class ResultsCtrl extends CrudCtrl<"results", IResultsModel, IResultsDocument> {
     }
 
     postResult: NextApiHandler = async (req, res) => {
+        console.log("post result");
         return genericCtrlFn(res, this.ctrlName + ".getResult", async () => {
-            const body: IResultsModel = req.body;
+            const body: IResultsBaseModel = req.body;
             const results = await resultsService.getResults(body.quizz, body.user);
             const quizz = await quizzService.get(body.quizz);
+            console.log("BODY RESPONSES LENGTH :::", body.responses.length);
+            console.log("BODY REPONSES ::::", body.responses[body.responses.length - 1]);
             const question = quizz?.questions.find(
-                (question) => question._id === body.responses[body.responses.length - 1].question._id,
+                (question) => question._id == body.responses[body.responses.length - 1].question,
             );
+            let updatedResults: IResultsModel;
+            console.log("LA QUESTION DU BACK :: ", question);
             if (question) {
                 if (results) {
-                    await resultsService.update(results._id, {
+                    updatedResults = {
                         ...results,
                         responses: [
                             ...results.responses,
@@ -30,18 +35,19 @@ class ResultsCtrl extends CrudCtrl<"results", IResultsModel, IResultsDocument> {
                                 userResponse: body.responses[body.responses.length - 1].userResponse,
                             },
                         ],
-                    });
+                    };
+                    await resultsService.update(results._id, updatedResults);
                 } else {
-                    await resultsService.create({
+                    updatedResults = {
                         ...body,
                         responses: [{ question, userResponse: body.responses[0].userResponse }],
-                    });
+                    };
+                    await resultsService.create(updatedResults);
                 }
-                return deepEqualBetweenObjects(
-                    question.answers,
-                    body.responses[body.responses.length - 1].userResponse,
-                );
+                return updatedResults;
             }
+
+            throw errorsBuilders.results.notFound();
         });
     };
 }

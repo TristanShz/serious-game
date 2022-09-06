@@ -1,5 +1,5 @@
 import CrudService from "../../../crud/CrudService";
-import { IResultsDocument, IResultsModel, ResultsModel } from "./ResultsModel";
+import ResultsModel, { IResultsDocument, IResultsModel } from "./ResultsModel";
 
 class ResultsService extends CrudService<"results", IResultsModel, IResultsDocument> {
     constructor() {

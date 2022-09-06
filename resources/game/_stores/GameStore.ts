@@ -8,13 +8,17 @@ import { ILevelGeneration } from "../_models/ILevelGeneration";
 import { IGameFunctions } from "../_models/IGameFunctions";
 import { IGroundSection } from "../_models/IGroundSection";
 import { InputHandler } from "../utils/inputHandler";
-import { TQuizzBaseMdl, TResultBaseMdl } from "../../quizz/_models/QuizzMdl";
+import { isQuestionModel, TQuizzBaseMdl, TResultBaseMdl } from "../../quizz/_models/QuizzMdl";
 import { makeAutoObservable } from "mobx";
+import { TSessionData } from "../../../lib/withSession";
+import { emptyQuizz, emptyUser } from "./GameContext";
+import { resultsStore } from "../../results/_stores/resultsStore";
+import { deepEqualBetweenObjects } from "../../../_common/_utils/objectHelper";
 
 export enum GAME_STATE {
-    START = 0,
-    LIVE = 1,
-    END = 2,
+    START,
+    LIVE,
+    END,
 }
 
 export class GameStore implements IGameFunctions, IGameProperties {
@@ -29,24 +33,46 @@ export class GameStore implements IGameFunctions, IGameProperties {
     level: ILevelGeneration | undefined = undefined;
 
     quizz: TQuizzBaseMdl;
-    gameState: GAME_STATE;
     currentQuestion: number;
     result: TResultBaseMdl;
-    timer: number;
 
-    constructor(quizz: TQuizzBaseMdl, gameWidth: number, gameHeight: number) {
+    constructor(
+        quizz: TQuizzBaseMdl = emptyQuizz,
+        user: TSessionData = emptyUser,
+        gameWidth: number,
+        gameHeight: number,
+    ) {
         makeAutoObservable(this);
         this.quizz = quizz;
-        this.timer = this.quizz.duration * 60;
+        this._timer = this.quizz.duration * 60;
         this.result = {
-            user: "",
+            user: user._id,
             quizz: this.quizz._id,
             responses: [],
-            rates: [],
         };
         this.updateGameSize(gameWidth, gameHeight);
         this.currentQuestion = 1;
-        this.gameState = GAME_STATE.START;
+        this._gameState = GAME_STATE.START;
+    }
+
+    private _timer: number;
+
+    get timer(): number {
+        return this._timer;
+    }
+
+    set timer(value: number) {
+        this._timer = value;
+    }
+
+    private _gameState: GAME_STATE;
+
+    get gameState(): GAME_STATE {
+        return this._gameState;
+    }
+
+    set gameState(value: GAME_STATE) {
+        this._gameState = value;
     }
 
     updateGameSize(gameWidth: number, gameHeight: number) {
@@ -73,9 +99,29 @@ export class GameStore implements IGameFunctions, IGameProperties {
         this.player?.update();
     }
 
-    setGameState(state: GAME_STATE) {
-        this.gameState = state;
+    async postResult(userResponse: { a: boolean; b: boolean; c: boolean; d: boolean }) {
+        const updatedResults = await resultsStore.postResult({
+            ...this.result,
+            responses: [
+                ...this.result.responses,
+                { question: this.quizz.questions[this.currentQuestion - 1]._id, userResponse },
+            ],
+        });
+        this.result = updatedResults;
     }
 
-    postResult() {}
+    checkAnswer(index: number) {
+        const questionConcerned = this.result.responses[index];
+        if (isQuestionModel(questionConcerned.question)) {
+            return deepEqualBetweenObjects(
+                {
+                    a: questionConcerned.question.answers.a.isTrue,
+                    b: questionConcerned.question.answers.b.isTrue,
+                    c: questionConcerned.question.answers.c.isTrue,
+                    d: questionConcerned.question.answers.d.isTrue,
+                },
+                questionConcerned.userResponse,
+            );
+        }
+    }
 }

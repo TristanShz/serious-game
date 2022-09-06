@@ -9,9 +9,6 @@ const Question = observer(() => {
     const gameStore = useGameStore();
     const question = gameStore.quizz.questions[gameStore.currentQuestion - 1];
     const [checkedQuestion, setCheckedQuestion] = useState<number[]>([]);
-
-    const sendResult = () => {};
-
     return (
         <div className={"px-8 py-12 flex flex-col justify-between h-full"}>
             <Timer minutes={gameStore.timer / 60} seconds={gameStore.timer % 60} />
@@ -31,7 +28,15 @@ const Question = observer(() => {
                     <div className={"flex gap-1"}>
                         {gameStore.quizz.questions.map((question, index) => {
                             if (gameStore.result.responses[index]) {
-                                return <div key={index} className={clsx("w-14 h-4 bg-stone-300")}></div>;
+                                return (
+                                    <div
+                                        key={index}
+                                        className={clsx("w-14 h-4", {
+                                            "bg-quizz-answer-true": gameStore.checkAnswer(index),
+                                            "bg-quizz-answer-false": !gameStore.checkAnswer(index),
+                                        })}
+                                    ></div>
+                                );
                             } else {
                                 return <div key={index} className={clsx("w-14 h-4 bg-stone-300")}></div>;
                             }
@@ -63,6 +68,14 @@ const Question = observer(() => {
             <div
                 className={
                     "absolute right-8 top-1/2 hover:cursor-pointer hover:scale-110 transition-all active:scale-100"
+                }
+                onClick={() =>
+                    gameStore.postResult({
+                        a: checkedQuestion.includes(0),
+                        b: checkedQuestion.includes(1),
+                        c: checkedQuestion.includes(2),
+                        d: checkedQuestion.includes(3),
+                    })
                 }
             >
                 <svg

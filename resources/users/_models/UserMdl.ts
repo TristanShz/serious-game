@@ -11,3 +11,8 @@ export type TUserBase = {
 export type TUser = TUserBase & {
     roles: USER_ROLES;
 };
+
+export enum USER_ROLES_FRONT {
+    ADMIN = "ADMIN",
+    USER = "USER",
+}

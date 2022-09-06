@@ -5,8 +5,8 @@ import { apiConfig } from "../../_config/config";
 import mongoose, { FilterQuery } from "mongoose";
 import * as fs from "fs";
 import _ from "lodash";
-import { flattenObject } from "../../_common/_helpers/objectHelper";
 import paths from "../../_config/paths";
+import { flattenObject } from "../../_common/_helpers/objectHelper";
 
 abstract class CrudService<
     TCrudId extends keyof typeof errorsBuilders,
