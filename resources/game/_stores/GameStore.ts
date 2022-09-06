@@ -110,7 +110,8 @@ export class GameStore implements IGameFunctions, IGameProperties {
             ],
         });
         this.result = updatedResults;
-        this.setGameState(GAME_STATE.SWITCHING_LEVEL);
+
+        setTimeout(() => this.setGameState(GAME_STATE.SWITCHING_LEVEL), 750);
     }
 
     checkAnswer(index: number) {
