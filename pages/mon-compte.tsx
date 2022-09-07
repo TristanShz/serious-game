@@ -15,6 +15,7 @@ type Props = {
 
 function MonCompte(props: Props) {
     const [onResult, setOnResult] = useState(false);
+    const [message, setMessage] = useState("");
     const form = useForm<TUserBase>({
         defaultValues: {
             _id: props.user._id,
@@ -25,9 +26,13 @@ function MonCompte(props: Props) {
     });
 
     const onSubmit = (user: TUserBase) => {
-        userStore.update(user).then((data) => {
-            console.log(data);
+        userStore.update(user).then((_data) => {
+            setMessage("Informations modifiée !");
         });
+
+        setTimeout(() => {
+            setMessage("");
+        }, 3000);
     };
 
     return (
@@ -72,7 +77,7 @@ function MonCompte(props: Props) {
                 </>
             ) : (
                 <FormProvider {...form}>
-                    <form className="space-y-2 p-2 font-semibold" onSubmit={form.handleSubmit(onSubmit)}>
+                    <form className="space-y-6 p-2 font-semibold" onSubmit={form.handleSubmit(onSubmit)}>
                         <InputBlock label="Nom :">
                             <Controller
                                 name="lastName"
@@ -124,6 +129,7 @@ function MonCompte(props: Props) {
                             />
                         </InputBlock>
                         <Button content="Modifier" color="gradient" type="submit" />
+                        {message.length > 0 && <div className={"text-green-600 text-center"}>{message}</div>}
                     </form>
                 </FormProvider>
             )}
