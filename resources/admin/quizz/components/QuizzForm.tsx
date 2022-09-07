@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, FormProvider, useController, useForm } from "react-hook-form";
 import { TQuestionMdl, TQuizzMdl } from "../../../quizz/_models/QuizzMdl";
 import { InputBlock } from "../../../../_common/ui/form/InputBlock";
@@ -14,13 +14,13 @@ import { quizzAdminStore } from "../_stores/quizzAdminStore";
 import clsx from "clsx";
 
 type Props = {
-    data?: TQuizzMdl;
+    data?: any;
 };
 
 export function QuizzForm(props: Props) {
-    const [questions, setQuestions] = useState<TQuestionMdl[]>([]);
+    const [questions, setQuestions] = useState<TQuestionMdl[]>(props.data ? props.data.questions : []);
     const { push } = useRouter();
-    console.log(questions);
+    const isUpdate = props.data;
     const form = useForm<TQuizzMdl>({
         defaultValues: {
             ...props.data,
@@ -30,12 +30,17 @@ export function QuizzForm(props: Props) {
         field: { onChange, ...field },
     } = useController({ control: form.control, name: "description" });
 
+    useEffect(() => {
+        form.reset({ ...props.data });
+    }, [props.data]);
+
     return (
         <FormProvider {...form}>
             <form
                 className={"flex flex-col gap-8 w-full"}
                 onSubmit={form.handleSubmit((data) => {
                     const quizzObject = {
+                        _id: props.data ? props.data._id : undefined,
                         name: data.name,
                         description: data.description,
                         duration: data.duration,
@@ -64,13 +69,21 @@ export function QuizzForm(props: Props) {
                             };
                         }),
                     };
-                    quizzAdminStore.create(quizzObject).then((_r) => {
-                        form.reset({
-                            name: "",
-                            description: "",
+                    if (!isUpdate) {
+                        quizzAdminStore.create(quizzObject).then((_r) => {
+                            form.reset({
+                                name: "",
+                                description: "",
+                            });
+                            setQuestions([]);
                         });
-                        setQuestions([]);
-                    });
+                    } else {
+                        //TODO: fix object bug!
+                        quizzAdminStore.update(quizzObject).then((_r) => {
+                            console.log(_r);
+                            push(urlsAdmin().quizz);
+                        });
+                    }
                 })}
             >
                 <InputBlock label={"Nom du quizz"}>

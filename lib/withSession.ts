@@ -16,7 +16,7 @@ export function withSessionSsr<P extends { [key: string]: unknown } = { [key: st
 
 declare module "iron-session" {
     interface IronSessionData {
-        user?: {
+        user: {
             _id: string;
             firstName: string;
             lastName: string;
