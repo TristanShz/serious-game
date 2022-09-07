@@ -17,7 +17,7 @@ export interface IUserModel {
 
 export interface IUserDocument extends Omit<IUserModel, "_id">, mongoose.Document {}
 
-const UserSchema = new mongoose.Schema<IUserModel>(
+export const UserSchema = new mongoose.Schema<IUserModel>(
     {
         firstName: { type: String, trim: true, required: true },
         lastName: { type: String, trim: true, required: true },

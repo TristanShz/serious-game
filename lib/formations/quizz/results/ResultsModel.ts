@@ -1,30 +1,35 @@
 import mongoose from "mongoose";
 import { TMongooseId } from "../../../../_common/_types/MongooseTypes";
 import { IQuestionModel, QuestionSchema } from "../questions/QuestionModel";
+import UserModel from "../../../users/UserModel";
+import QuizzModel from "../QuizzModel";
 
-export const isQuestionModel = (question: IQuestionModel | undefined): question is IQuestionModel => {
-    return question !== undefined;
-};
+export interface IResultsBaseModel {
+    user: TMongooseId;
+    quizz: TMongooseId;
+    responses: {
+        question: TMongooseId;
+        userResponse: { a: boolean; b: boolean; c: boolean; d: boolean };
+    }[];
+}
 
 export interface IResultsModel {
     user: TMongooseId;
     quizz: TMongooseId;
     responses: {
-        question: TMongooseId | IQuestionModel;
+        question: IQuestionModel;
         userResponse: { a: boolean; b: boolean; c: boolean; d: boolean };
     }[];
-    rates: boolean[];
 }
 
 export interface IResultsDocument extends IResultsModel, mongoose.Document {}
 
 export const ResultsSchema = new mongoose.Schema<IResultsDocument>({
-    user: { type: String, trim: true },
-    quizz: { type: Boolean },
+    user: { type: mongoose.Types.ObjectId, ref: UserModel },
+    quizz: { type: mongoose.Types.ObjectId, ref: QuizzModel },
     responses: [
         { question: { type: QuestionSchema }, userResponse: { a: Boolean, b: Boolean, c: Boolean, d: Boolean } },
     ],
-    rates: { type: [Boolean] },
 });
 
-export const ResultsModel = mongoose.model<IResultsDocument>("Results", ResultsSchema);
+export default mongoose.models.Results || mongoose.model("Results", ResultsSchema);

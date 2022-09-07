@@ -52,7 +52,7 @@ class FormationsCtrl extends CrudCtrl<"formations", IFormationModel, IFormationD
                           }),
                       )
                     : undefined;
-
+                console.log("VOILA LES QUIZZ ::", quizz);
                 return { ...formation, quizz };
             } else throw errorsBuilders.category.notFound();
         });

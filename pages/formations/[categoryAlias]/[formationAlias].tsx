@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 
 export const FormationAlias = (props: { formation: TFormationMdl; category: TCategoryMdl }) => {
     const { basePath } = useRouter();
-
+    console.log(props.formation.quizz);
     return (
         <>
             <Meta

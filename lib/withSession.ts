@@ -2,6 +2,7 @@ import { withIronSessionApiRoute, withIronSessionSsr } from "iron-session/next";
 import { GetServerSidePropsContext, GetServerSidePropsResult, NextApiHandler } from "next";
 import { apiConfig } from "../_config/config";
 import { USER_ROLES } from "./users/UserModel";
+import { USER_ROLES_FRONT } from "../resources/users/_models/UserMdl";
 
 export function withSessionRoute(handler: NextApiHandler) {
     return withIronSessionApiRoute(handler, apiConfig.ironOptions);
@@ -31,7 +32,7 @@ export type TSessionData = {
     firstName: string;
     lastName: string;
     email: string;
-    role: USER_ROLES;
+    role: USER_ROLES | USER_ROLES_FRONT;
     isLoggedIn: boolean;
 };
 

@@ -47,6 +47,11 @@ export type TAnswerMdl = TAnswerBaseMdl & {
 export type TResultBaseMdl = {
     user: TMongooseId;
     quizz: TMongooseId;
-    responses: { question: Partial<TQuestionMdl>; userResponse: { a: boolean; b: boolean; c: boolean; d: boolean } }[];
-    rates: boolean[];
+    responses: { question: TQuestionMdl | string; userResponse: { a: boolean; b: boolean; c: boolean; d: boolean } }[];
+};
+
+export type TResultMdl = TResultBaseMdl & { _id: TMongooseId };
+
+export const isQuestionModel = (question: TQuestionMdl | undefined | string): question is TQuestionMdl => {
+    return question !== undefined && typeof question !== "string";
 };
