@@ -10,7 +10,6 @@ type Props = {
 
 const GamePanel = observer((props: Props) => {
     const gameStore = useGameStore();
-
     return (
         <div
             className={clsx(
@@ -25,5 +24,7 @@ const GamePanel = observer((props: Props) => {
         </div>
     );
 });
+
+GamePanel.displayName = "GamePanel";
 
 export default GamePanel;

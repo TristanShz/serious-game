@@ -1,21 +1,19 @@
 import { MutableRefObject, PropsWithChildren, useEffect, useRef } from "react";
 import { loadImages } from "./utils/loadImages";
-import { GameProvider } from "./_stores/GameContext";
+import { useGameStore } from "./_stores/GameContext";
 import { images } from "./utils/images";
 import { GAME_STATE, GameStore } from "./_stores/GameStore";
 import ReturnButton from "./components/ReturnButton";
-import { TSessionData } from "../../lib/withSession";
-import { TQuizzBaseMdl } from "../quizz/_models/QuizzMdl";
 import { observer } from "mobx-react-lite";
 
-const GameLoop = observer((props: PropsWithChildren<{ quizz?: TQuizzBaseMdl; user?: TSessionData }>) => {
+const GameLoop = observer((props: PropsWithChildren) => {
     const canvasRef: MutableRefObject<HTMLCanvasElement | null> = useRef(null);
 
     const GAME_WIDTH = window.innerWidth;
     const GAME_HEIGHT = window.innerHeight;
 
-    const gameStore = new GameStore(props.quizz, props.user, GAME_WIDTH, GAME_HEIGHT);
-    if (props.quizz && props.user) gameStore.setGameState(GAME_STATE.LIVE);
+    const gameStore = useGameStore();
+
     useEffect(() => {
         const timer = setInterval(() => {
             if (gameStore.gameState === GAME_STATE.LIVE) {
@@ -34,7 +32,7 @@ const GameLoop = observer((props: PropsWithChildren<{ quizz?: TQuizzBaseMdl; use
                 let interval = 1000 / fpsLimit;
                 let delta: number;
 
-                const gameLoop = (timeStamp: number) => {
+                const gameLoop = () => {
                     requestAnimationFrame(gameLoop);
                     now = Date.now();
                     delta = now - then;
@@ -46,12 +44,12 @@ const GameLoop = observer((props: PropsWithChildren<{ quizz?: TQuizzBaseMdl; use
                     ctx.clearRect(0, 0, GameStore.gameWidth, GameStore.gameHeight);
                     gameStore.draw();
                     gameStore.update();
-
                     if (delta > interval && gameStore.player) {
                         gameStore.player.frame++;
                         then = now - (delta % interval);
                     }
                 };
+
                 loadImages(Object.values(images), gameLoop);
             }
         }
@@ -59,12 +57,13 @@ const GameLoop = observer((props: PropsWithChildren<{ quizz?: TQuizzBaseMdl; use
     }, []);
 
     return (
-        <GameProvider store={gameStore}>
+        <>
             <canvas ref={canvasRef} width={GAME_WIDTH} height={GAME_HEIGHT} className={"absolute z-0"} />
             <ReturnButton />
-            {props.children && props.children}
-        </GameProvider>
+            {props.children}
+        </>
     );
 });
 
+GameLoop.displayName = "GameLoop";
 export default GameLoop;

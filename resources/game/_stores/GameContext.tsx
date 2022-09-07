@@ -1,5 +1,5 @@
 import { createContext, FC, PropsWithChildren, useContext } from "react";
-import { GameStore } from "./GameStore";
+import { GAME_STATE, GameStore } from "./GameStore";
 import { TQuizzBaseMdl } from "../../quizz/_models/QuizzMdl";
 import { TSessionData } from "../../../lib/withSession";
 import { USER_ROLES_FRONT } from "../../users/_models/UserMdl";
@@ -33,7 +33,7 @@ export const emptyUser: TSessionData = {
     isLoggedIn: false,
 };
 
-const GameCtx = createContext(new GameStore(undefined, undefined, 0, 0));
+const GameCtx = createContext(new GameStore(undefined, undefined, GAME_STATE.START, 0, 0));
 
 const GameProvider: FC<{ store: GameStore; children: PropsWithChildren<any> }> = ({ store, children }) => {
     return <GameCtx.Provider value={store}>{children}</GameCtx.Provider>;

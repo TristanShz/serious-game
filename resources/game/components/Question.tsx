@@ -53,7 +53,7 @@ const Question = observer(() => {
                 {Object.values(question.answers).map((answer, index) => {
                     return (
                         <Answer
-                            key={answer.text}
+                            key={answer._id}
                             text={answer.text}
                             checked={checkedQuestion.includes(index)}
                             isTrue={
@@ -85,12 +85,14 @@ const Question = observer(() => {
                     "absolute right-8 top-1/2 hover:cursor-pointer hover:scale-110 transition-all active:scale-100"
                 }
                 onClick={() =>
-                    gameStore.postResult({
-                        a: checkedQuestion.includes(0),
-                        b: checkedQuestion.includes(1),
-                        c: checkedQuestion.includes(2),
-                        d: checkedQuestion.includes(3),
-                    })
+                    gameStore
+                        .postResult({
+                            a: checkedQuestion.includes(0),
+                            b: checkedQuestion.includes(1),
+                            c: checkedQuestion.includes(2),
+                            d: checkedQuestion.includes(3),
+                        })
+                        .then(() => setCheckedQuestion([]))
                 }
             >
                 <svg
@@ -154,5 +156,7 @@ const Question = observer(() => {
         </div>
     );
 });
+
+Question.displayName = "Question Component";
 
 export default Question;

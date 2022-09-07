@@ -18,6 +18,11 @@ const Question = dynamic(() => import("../../../resources/game/components/Questi
 const GamePanel = dynamic(() => import("../../../resources/game/components/GamePanel"), {
     ssr: false,
 });
+
+const GameProvider = dynamic(() => import("../../../resources/game/components/Game"), {
+    ssr: false,
+});
+
 type Props = {
     quizz: TQuizzBaseMdl;
 };
@@ -26,16 +31,19 @@ const QuizzPage = observer(({ quizz }: Props) => {
         redirectTo: "/connexion",
         redirectIfFound: false,
     });
+
     return (
         <>
             <Head>
                 <title>{quizz.name}</title>
             </Head>
-            <GameLoop quizz={quizz} user={user?.data}>
-                <GamePanel>
-                    <Question />
-                </GamePanel>
-            </GameLoop>
+            <GameProvider quizz={quizz} user={user?.data}>
+                <GameLoop>
+                    <GamePanel>
+                        <Question />
+                    </GamePanel>
+                </GameLoop>
+            </GameProvider>
         </>
     );
 });

@@ -11,9 +11,9 @@ import { InputHandler } from "../utils/inputHandler";
 import { isQuestionModel, TQuizzBaseMdl, TResultBaseMdl } from "../../quizz/_models/QuizzMdl";
 import { TSessionData } from "../../../lib/withSession";
 import { emptyQuizz, emptyUser } from "./GameContext";
-import { resultsStore } from "../../results/_stores/resultsStore";
 import { deepEqualBetweenObjects } from "../../../_common/_utils/objectHelper";
 import { makeAutoObservable } from "mobx";
+import { resultsStore } from "../../results/_stores/resultsStore";
 
 export enum GAME_STATE {
     START,
@@ -22,11 +22,17 @@ export enum GAME_STATE {
     END,
 }
 
+export enum GAME_ENVIRONMENT {
+    NORMAL = "normal",
+    HELL = "hell",
+}
+
 export class GameStore implements IGameFunctions, IGameProperties {
     static gameWidth: number;
     static gameHeight: number;
     static tileSize: number;
     static ctx: CanvasRenderingContext2D;
+    static environment: GAME_ENVIRONMENT;
 
     ground: IGroundSection[] | undefined = undefined;
     player: IPlayer | undefined = undefined;
@@ -40,6 +46,7 @@ export class GameStore implements IGameFunctions, IGameProperties {
     constructor(
         quizz: TQuizzBaseMdl = emptyQuizz,
         user: TSessionData = emptyUser,
+        gameState: GAME_STATE = GAME_STATE.START,
         gameWidth: number,
         gameHeight: number,
     ) {
@@ -54,7 +61,8 @@ export class GameStore implements IGameFunctions, IGameProperties {
         this.currentQuestion = 1;
 
         this._timer = this.quizz.duration * 60;
-        this._gameState = GAME_STATE.START;
+        this._gameState = gameState;
+        GameStore.environment = GAME_ENVIRONMENT.NORMAL;
     }
 
     private _timer: number;
@@ -110,8 +118,28 @@ export class GameStore implements IGameFunctions, IGameProperties {
             ],
         });
         this.result = updatedResults;
+        this.nextQuestion();
+    }
 
-        setTimeout(() => this.setGameState(GAME_STATE.SWITCHING_LEVEL), 750);
+    nextQuestion() {
+        setTimeout(() => {
+            this.setGameState(GAME_STATE.SWITCHING_LEVEL);
+            if (this.checkAnswer(this.result.responses.length - 1)) {
+            } else {
+                this.player?.die();
+                this.currentQuestion++;
+            }
+        }, 1000);
+    }
+
+    setEnvironment(environment: GAME_ENVIRONMENT) {
+        if (environment === GAME_ENVIRONMENT.NORMAL) {
+            GameStore.environment = GAME_ENVIRONMENT.NORMAL;
+            this.level = new LevelGeneration(GAME_ENVIRONMENT.NORMAL);
+        } else if (environment === GAME_ENVIRONMENT.HELL) {
+            GameStore.environment = GAME_ENVIRONMENT.HELL;
+            this.level = new LevelGeneration(GAME_ENVIRONMENT.HELL);
+        }
     }
 
     checkAnswer(index: number) {
